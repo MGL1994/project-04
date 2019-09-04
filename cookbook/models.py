@@ -36,7 +36,7 @@ class Recipe(models.Model):
     meal = models.ForeignKey(Meal, related_name='recipes', on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='recipes', blank=True)
     created = models.DateTimeField()
-    comments = models.ForeignKey(Comment, related_name='recipes', on_delete=models.CASCADE)
+    # comments = models.ForeignKey(Comment, related_name='recipes', blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.title}'

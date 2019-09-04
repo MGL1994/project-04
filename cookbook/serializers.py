@@ -19,17 +19,17 @@ class MealSerializer(serializers.ModelSerializer):
         model = Meal
         fields = ('id', 'name', )
 
-class CommentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Comment
-        fields = ('id', 'content', )
+# class CommentSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Comment
+#         fields = ('id', 'content', )
 
 class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title', 'image', 'equipment', 'prep_time', 'cook_time', 'portions', 'meal', 'tags', 'created', 'comments', )
+        fields = ('id', 'title', 'image', 'equipment', 'prep_time', 'cook_time', 'portions', 'meal', 'tags', 'created', )
 
 class PopulatedMealSerializer(MealSerializer):
     recipes = RecipeSerializer(many=True)
@@ -41,4 +41,4 @@ class PopulatedRecipeSerializer(RecipeSerializer):
     equipment = EquipmentSerializer(many=True)
     meal = MealSerializer()
     tags = TagSerializer(many=True)
-    comments = CommentSerializer(many=True)
+    # comments = CommentSerializer(many=True)

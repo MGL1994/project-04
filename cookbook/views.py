@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import Equipment, Meal, Tag, Comment, Recipe
-from .serializers import EquipmentSerializer, TagSerializer, MealSerializer, CommentSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
+from .serializers import EquipmentSerializer, TagSerializer, MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
 
 class RecipeListView(APIView):
 
