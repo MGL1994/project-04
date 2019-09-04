@@ -64,7 +64,7 @@ class MealDetailView(APIView):
 
     def get(self, _request, pk):
         meal = Meal.objects.get(pk=pk)
-        serializer = MealSerializer(meal)
+        serializer = PopulatedMealSerializer(meal)
         return Response(serializer.data)
 
     def put(self, request, pk):

@@ -35,7 +35,7 @@ class PopulatedMealSerializer(MealSerializer):
     recipes = RecipeSerializer(many=True)
 
     class Meta(MealSerializer.Meta):
-        fields = ('id', 'recipes', )
+        fields = ('id', 'name', 'recipes', )
 
 class PopulatedRecipeSerializer(RecipeSerializer):
     equipment = EquipmentSerializer(many=True)
