@@ -1,4 +1,4 @@
-# from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -24,12 +24,12 @@ class Tag(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     image = models.CharField(max_length=200)
-    # ingredients = ArrayField(models.CharField(max_length=100))
+    ingredients = ArrayField(models.CharField(max_length=100))
     equipment = models.ManyToManyField(Equipment, related_name='recipes')
     prep_time = models.DurationField()
     cook_time = models.DurationField()
     portions = models.IntegerField()
-    # method = ArrayField(models.TextField())
+    method = ArrayField(models.TextField())
     meal = models.ForeignKey(Meal, related_name='recipes', on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='recipes', blank=True)
     created = models.DateTimeField()
