@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
     path('', include('cookbook.urls')),
-    path('', include('jwt_auth.urls'))
+    path('', include('subscribers.urls')),
+    path('', include('jwt_auth.urls')),
 ]

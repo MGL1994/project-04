@@ -21,11 +21,6 @@ class Tag(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-class Comment(models.Model):
-    content = models.TextField()
-    # user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
-    # recipe = models.ForeignKey(Recipe, related_name='comments', on_delete=models.CASCADE)
-
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     image = models.CharField(max_length=200)
@@ -39,7 +34,11 @@ class Recipe(models.Model):
     tags = models.ManyToManyField(Tag, related_name='recipes', blank=True)
     created = models.DateTimeField()
     user = models.ForeignKey(User, related_name='recipes', on_delete=models.CASCADE)
-    # comments = models.ForeignKey(Comment, related_name='recipes', blank=True, on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    content = models.TextField()
+    user = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, related_name='comments', on_delete=models.SET_NULL, blank=True, null=True,)
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.content}'
