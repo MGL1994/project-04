@@ -1,10 +1,14 @@
+import os
+import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
 
-from .models import Equipment, Meal, Tag, Comment, Recipe
-from .serializers import EquipmentSerializer, TagSerializer, MealSerializer, CommentSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
+from dotenv import load_dotenv
+load_dotenv()
+from .models import Meal, Recipe
+from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
 
 class RecipeListView(APIView):
 
@@ -16,7 +20,30 @@ class RecipeListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = RecipeSerializer(data=request.data)
+        data = request.data
+
+        app_id = os.getenv("APPID")
+        app_key = os.getenv("APPKEY")
+
+        r = requests.post('https://api.edamam.com/api/nutrition-details',
+            params={'app_id':app_id, 'app_key':app_key},
+            json={'title': data['title'], 'ingr': data['ingredients']}
+        )
+
+        stats = r.json()['totalNutrients']
+        nutrition = {
+            'calories': round(stats['ENERC_KCAL']['quantity']),
+            'fat': round(stats['FAT']['quantity']),
+            'saturates': round(stats['FASAT']['quantity']),
+            'carbs': round(stats['CHOCDF']['quantity']),
+            'sugars': round(stats['SUGAR']['quantity']),
+            'fibre': round(stats['FIBTG']['quantity']),
+            'protein': round(stats['PROCNT']['quantity']),
+            'salt': round(stats['NA']['quantity'])
+        }
+        data = {**data, **nutrition}
+
+        serializer = RecipeSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             recipe = serializer.instance

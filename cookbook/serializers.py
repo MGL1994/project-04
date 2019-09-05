@@ -29,7 +29,8 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title', 'image', 'ingredients', 'equipment', 'prep_time', 'cook_time', 'portions', 'method', 'meal', 'tags', 'created', 'comments', )
+        fields = ('id', 'title', 'image', 'ingredients', 'equipment', 'prep_time', 'cook_time', 'portions', 'method', 'meal', 'tags', 'created', 'comments', 'calories', 'fat', 'saturates', 'carbs', 'sugars', 'fibre', 'protein', 'salt',)
+
 
 class PopulatedMealSerializer(MealSerializer):
     recipes = RecipeSerializer(many=True)
