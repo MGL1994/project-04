@@ -1,10 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsOwnerOrReadOnly
 
 from .models import Equipment, Meal, Tag, Comment, Recipe
 from .serializers import EquipmentSerializer, TagSerializer, MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
 
 class RecipeListView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def get(self, _request):
         recipes = Recipe.objects.all()
@@ -22,6 +26,8 @@ class RecipeListView(APIView):
         return Response(serializer.errors, status=422)
 
 class RecipeDetailView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def get(self, _request, pk):
         recipe = Recipe.objects.get(pk=pk)
@@ -45,6 +51,8 @@ class RecipeDetailView(APIView):
 
 class MealListView(APIView):
 
+    permission_classes = (IsOwnerOrReadOnly,)
+
     def get(self, _request):
         meals = Meal.objects.all()
         serializer = PopulatedMealSerializer(meals, many=True)
@@ -61,6 +69,8 @@ class MealListView(APIView):
         return Response(serializer.errors, status=422)
 
 class MealDetailView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def get(self, _request, pk):
         meal = Meal.objects.get(pk=pk)
