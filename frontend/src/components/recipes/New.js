@@ -44,7 +44,9 @@ class New extends React.Component {
     this.state = {
       formData: {},
       errors: {},
-      file: null
+      file: null,
+      ingredients: [],
+      steps: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -58,14 +60,16 @@ class New extends React.Component {
 
     const cleanedData = {
       ...this.state.formData,
-      ingredients: this.state.formData.ingredients.split(', '),
+      ingredients: this.state.ingredients,
       equipment: [parseInt(this.state.formData.equipment)],
       portions: parseInt(this.state.formData.portions),
-      method: this.state.formData.method.split(', '),
+      method: this.state.steps,
       meal: parseInt(this.state.formData.meal),
       tags: [parseInt(this.state.formData.tags)],
       user: parseInt(Auth.currentUser())
     }
+
+    console.log(cleanedData)
 
     axios.post('/api/recipes/', cleanedData, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
@@ -96,7 +100,36 @@ class New extends React.Component {
     this.setState({ formData })
   }
 
+  handleDynamicChange2(e, index) {
+    this.state.steps[index] = e.target.value
+    this.setState({ steps: this.state.steps })
+  }
+
+  handleDynamicChange(e, index) {
+    this.state.ingredients[index] = e.target.value
+    this.setState({ ingredients: this.state.ingredients })
+  }
+
+  addIngredient() {
+    this.setState({ ingredients: [...this.state.ingredients, '']})
+  }
+
+  addStep() {
+    this.setState({ steps: [...this.state.steps, '']})
+  }
+
+  handleRemove(index) {
+    this.state.ingredients.splice(index, 1)
+    this.setState({ ingredients: this.state.ingredients })
+  }
+
+  handleRemove2(index) {
+    this.state.steps.splice(index, 1)
+    this.setState({ steps: this.state.steps })
+  }
+
   render() {
+    console.log(this.state.formData)
     return (
 
       <section className="hero is-light">
@@ -135,12 +168,23 @@ class New extends React.Component {
 
                   <div className="field">
                     <label className="label">Ingredients</label>
-                    <input
-                      className="input"
-                      name="ingredients"
-                      placeholder="eg: 3 eggs, 4 slices of bread"
-                      onChange={this.handleChange}
-                    />
+                    {
+                      this.state.ingredients.map((ingredient, index) => {
+                        return (
+                          <div key={index}>
+                            <input
+                              className="input"
+                              name="ingredients"
+                              placeholder="eg: 3 eggs"
+                              onChange={(e) => this.handleDynamicChange(e, index)}
+                              value={ingredient}
+                            />
+                            <button onClick={() => this.handleRemove(index)}>Remove Ingredient</button>
+                          </div>
+                        )
+                      })
+                    }
+                    <button onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
                   </div>
 
                   <div className="field">
@@ -191,13 +235,23 @@ class New extends React.Component {
 
                   <div className="field">
                     <label className="label">Method</label>
-                    <input
-                      className="input"
-                      name="method"
-                      placeholder="Scramble the eggs, toast the bread"
-                      onChange={this.handleChange}
-                    />
-
+                    {
+                      this.state.steps.map((step, index) => {
+                        return (
+                          <div key={index}>
+                            <input
+                              className="input"
+                              name="method"
+                              placeholder="eg: Whisk the eggs"
+                              onChange={(e) => this.handleDynamicChange2(e, index)}
+                              value={step}
+                            />
+                            <button onClick={() => this.handleRemove2(index)}>Remove Step</button>
+                          </div>
+                        )
+                      })
+                    }
+                    <button onClick={(e) => this.addStep(e)}>Add Step</button>
                   </div>
 
                   <div className="field">
