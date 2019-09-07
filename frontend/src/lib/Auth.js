@@ -21,9 +21,9 @@ class Auth {
     return !!this.getToken()
   }
 
-  static isCurrentUser(user) {
+  static currentUser() {
     const payload = this.getPayload()
-    return payload && user.id === payload.sub
+    return payload.sub
   }
 }
 

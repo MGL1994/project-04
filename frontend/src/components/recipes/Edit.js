@@ -18,7 +18,7 @@ const mealOptions = [
   { value: 5, label: 'Snack' }
 ]
 
-const tagOptions = [
+const tagsOptions = [
   { value: 1, label: 'Healthy' },
   { value: 2, label: 'Vegetarian' }
 ]
@@ -37,7 +37,7 @@ const options = {
   }
 }
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   constructor() {
     super()
@@ -57,20 +57,24 @@ class New extends React.Component {
     e.preventDefault()
 
     const cleanedData = {
-      ...this.state.formData,
-      ingredients: this.state.formData.ingredients.split(', '),
-      equipment: [parseInt(this.state.formData.equipment)],
-      portions: parseInt(this.state.formData.portions),
-      method: this.state.formData.method.split(', '),
-      meal: parseInt(this.state.formData.meal),
-      tags: [parseInt(this.state.formData.tags)],
-      user: parseInt(Auth.currentUser())
+      title: this.state.formData.title,
+      image: this.state.formData.image,
+      ingredients: this.state.formData.ingredients,
+      equipment: this.state.formData.equipment,
+      prep_time: this.state.formData.prep_time,
+      cook_time: this.state.formData.cook_time,
+      portions: this.state.formData.portions,
+      method: this.state.formData.method,
+      meal: this.state.formData.meal,
+      tags: this.state.formData.tags
     }
 
-    axios.post('/api/recipes/', cleanedData, {
+    console.log(cleanedData)
+
+    axios.put(`/api/recipes/${this.props.match.params.id}/`, cleanedData, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push('/recipes'))
+      .then(() => this.props.history.push(`/recipes/${this.props.match.params.id}`))
       .catch(err => this.setState({ errors: err.response.data.errors }))
   }
 
@@ -96,15 +100,22 @@ class New extends React.Component {
     this.setState({ formData })
   }
 
-  render() {
-    return (
+  componentDidMount() {
+    axios.get(`/api/recipes/${this.props.match.params.id}`)
+      .then(res => this.setState({ formData: res.data }))
+  }
 
+  render() {
+    console.log(this.state.formData)
+    const selectedEquipment = (this.state.formData.equipment || []).map(equipment => ({ label: equipment, value: equipment }))
+    const selectedTags = (this.state.formData.tags || []).map(tags => ({ label: tags, value: tags }))
+    return (
       <section className="hero is-light">
         <div className="hero-body">
           <div className="container has-text-centered">
             <div className="column is-4 is-offset-4">
 
-              <h1 className="title"> New Recipe </h1>
+              <h1 className="title"> Edit Recipe </h1>
               <p className="subtitle">What did you make?</p>
               <div className="box is-light">
                 <form onSubmit={this.handleSubmit}>
@@ -114,6 +125,7 @@ class New extends React.Component {
                       className="input"
                       name="title"
                       placeholder="eg: Macaroni Cheese"
+                      value={this.state.formData.title || ''}
                       onChange={this.handleChange}
                     />
                   </div>
@@ -139,6 +151,7 @@ class New extends React.Component {
                       className="input"
                       name="ingredients"
                       placeholder="eg: 3 eggs, 4 slices of bread"
+                      value={this.state.formData.ingredients || ''}
                       onChange={this.handleChange}
                     />
                   </div>
@@ -149,6 +162,7 @@ class New extends React.Component {
                       isMulti
                       name="equipment"
                       options={equipmentOptions}
+                      value={selectedEquipment}
                       onChange={this.handleMultiChange}
                     />
                   </div>
@@ -160,6 +174,7 @@ class New extends React.Component {
                       type="time"
                       name="prep_time"
                       placeholder="eg: 00:05:00"
+                      value={this.state.formData.prep_time || ''}
                       onChange={this.handleChange}
                     />
 
@@ -172,6 +187,7 @@ class New extends React.Component {
                       type="time"
                       name="cook_time"
                       placeholder="eg: 00:15:00"
+                      value={this.state.formData.cook_time || ''}
                       onChange={this.handleChange}
                     />
 
@@ -184,6 +200,7 @@ class New extends React.Component {
                       type="number"
                       name="portions"
                       placeholder="eg: 2"
+                      value={this.state.formData.portions || ''}
                       onChange={this.handleChange}
                     />
 
@@ -195,6 +212,7 @@ class New extends React.Component {
                       className="input"
                       name="method"
                       placeholder="Scramble the eggs, toast the bread"
+                      value={this.state.formData.method || ''}
                       onChange={this.handleChange}
                     />
 
@@ -205,6 +223,7 @@ class New extends React.Component {
                     <Select
                       name="meal"
                       options={mealOptions}
+                      value={mealOptions.find(option => option.value === this.state.formData.meal)}
                       onChange={this.handleSelectChange}
                     />
                   </div>
@@ -214,7 +233,8 @@ class New extends React.Component {
                     <Select
                       isMulti
                       name="tags"
-                      options={tagOptions}
+                      options={tagsOptions}
+                      value={selectedTags}
                       onChange={this.handleMultiChange}
                     />
                   </div>
@@ -232,4 +252,4 @@ class New extends React.Component {
   }
 }
 
-export default New
+export default Edit

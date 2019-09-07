@@ -10,6 +10,7 @@ import Home from './components/pages/Home'
 import Index from './components/recipes/Index'
 import Show from './components/recipes/Show'
 import New from './components/recipes/New'
+import Edit from './components/recipes/Edit'
 
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
@@ -27,7 +28,8 @@ class App extends React.Component {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
-          <Route path='/recipes/add' component={New} />
+          <SecureRoute path='/recipes/new' component={New} />
+          <SecureRoute path='/recipes/:id/edit' component={Edit} />
           <SecureRoute path='/recipes/:id' component={Show} />
           <Route path='/recipes' component={Index} />
           <Route exact path='/' component={Home} />

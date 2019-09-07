@@ -68,7 +68,7 @@ class Navbar extends React.Component {
 
             <div className="navbar-end">
               <Link to="/recipes" className="navbar-item">Recipes</Link>
-              {Auth.isAuthenticated() && <Link to="/recipes/add" className="navbar-item">Add</Link>}
+              {Auth.isAuthenticated() && <Link to="/recipes/new" className="navbar-item">Add</Link>}
               {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
               {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
               {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.logout}>Logout</a>}
