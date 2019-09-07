@@ -32,7 +32,7 @@ class Recipe(models.Model):
     method = ArrayField(models.TextField())
     meal = models.ForeignKey(Meal, related_name='recipes', on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='recipes', blank=True)
-    created = models.DateTimeField()
+    created = models.DateTimeField(blank=True, null=True)
     user = models.ForeignKey(User, related_name='recipes', blank=True, null=True, on_delete=models.CASCADE)
     calories = models.IntegerField(blank=True, null=True)
     fat = models.IntegerField(blank=True, null=True)

@@ -19,6 +19,7 @@
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "filestack-react": "^3.1.0",
     "html-webpack-plugin": "^3.2.0",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.12.0",
@@ -32,6 +33,9 @@
     "webpack-cli": "^3.3.7"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "webpack-dev-server": "^3.8.0"
   }
 }
