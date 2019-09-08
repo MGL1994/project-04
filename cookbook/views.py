@@ -7,8 +7,8 @@ from .permissions import IsOwnerOrReadOnly
 
 from dotenv import load_dotenv
 load_dotenv()
-from .models import Meal, Recipe
-from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer
+from .models import Meal, Recipe, Comment
+from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer, CommentSerializer
 
 class RecipeListView(APIView):
 
@@ -116,5 +116,52 @@ class MealDetailView(APIView):
     def delete(self, _request, pk):
         meal = Meal.objects.get(pk=pk)
         meal.delete()
+
+        return Response(status=204)
+
+class CommentView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            comment = serializer.instance
+            serializer = CommentSerializer(comment)
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=422)
+
+class CommentListView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def get(self, _request, recipe):
+        comments = Comment.objects.all().filter(recipe=recipe)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+class CommentDetailView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def get(self, _request, pk):
+        comment = Comment.objects.get(pk=pk)
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        comment = Comment.objects.get(pk=pk)
+        serializer = RecipeSerializer(comment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=422)
+
+    def delete(self, _request, pk):
+        comment = Comment.objects.get(pk=pk)
+        comment.delete()
 
         return Response(status=204)

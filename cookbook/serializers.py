@@ -23,7 +23,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'content', )
+        fields = ('id', 'user', 'content', 'recipe',)
 
 class RecipeSerializer(serializers.ModelSerializer):
 

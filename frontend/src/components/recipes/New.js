@@ -66,7 +66,8 @@ class New extends React.Component {
       method: this.state.steps,
       meal: parseInt(this.state.formData.meal),
       tags: [parseInt(this.state.formData.tags)],
-      user: parseInt(Auth.currentUser())
+      user: parseInt(Auth.currentUser()),
+      created: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
     }
 
     console.log(cleanedData)
@@ -100,14 +101,14 @@ class New extends React.Component {
     this.setState({ formData })
   }
 
-  handleDynamicChange2(e, index) {
-    this.state.steps[index] = e.target.value
-    this.setState({ steps: this.state.steps })
-  }
-
   handleDynamicChange(e, index) {
     this.state.ingredients[index] = e.target.value
     this.setState({ ingredients: this.state.ingredients })
+  }
+
+  handleDynamicChange2(e, index) {
+    this.state.steps[index] = e.target.value
+    this.setState({ steps: this.state.steps })
   }
 
   addIngredient() {
@@ -129,7 +130,6 @@ class New extends React.Component {
   }
 
   render() {
-    console.log(this.state.formData)
     return (
 
       <section className="hero is-light">

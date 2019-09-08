@@ -44,7 +44,9 @@ class Edit extends React.Component {
     this.state = {
       formData: {},
       errors: {},
-      file: null
+      file: null,
+      ingredients: [],
+      steps: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -100,13 +102,41 @@ class Edit extends React.Component {
     this.setState({ formData })
   }
 
+  handleDynamicChange(e, index) {
+    this.state.ingredients[index] = e.target.value
+    this.setState({ ingredients: this.state.ingredients })
+  }
+
+  handleDynamicChange2(e, index) {
+    this.state.steps[index] = e.target.value
+    this.setState({ steps: this.state.steps })
+  }
+
+  addIngredient() {
+    this.setState({ ingredients: [...this.state.ingredients, '']})
+  }
+
+  addStep() {
+    this.setState({ steps: [...this.state.steps, '']})
+  }
+
+  handleRemove(index) {
+    this.state.ingredients.splice(index, 1)
+    this.setState({ ingredients: this.state.ingredients })
+  }
+
+  handleRemove2(index) {
+    this.state.steps.splice(index, 1)
+    this.setState({ steps: this.state.steps })
+  }
+
   componentDidMount() {
     axios.get(`/api/recipes/${this.props.match.params.id}`)
       .then(res => this.setState({ formData: res.data }))
+      // .then(this.setState({ ingredients: this.state.formData.ingredients }))
   }
 
   render() {
-    console.log(this.state.formData)
     const selectedEquipment = (this.state.formData.equipment || []).map(equipment => ({ label: equipment, value: equipment }))
     const selectedTags = (this.state.formData.tags || []).map(tags => ({ label: tags, value: tags }))
     return (
@@ -147,13 +177,23 @@ class Edit extends React.Component {
 
                   <div className="field">
                     <label className="label">Ingredients</label>
-                    <input
-                      className="input"
-                      name="ingredients"
-                      placeholder="eg: 3 eggs, 4 slices of bread"
-                      value={this.state.formData.ingredients || ''}
-                      onChange={this.handleChange}
-                    />
+                    {
+                      this.state.ingredients.map((ingredient, index) => {
+                        return (
+                          <div key={index}>
+                            <input
+                              className="input"
+                              name="ingredients"
+                              placeholder="eg: 3 eggs"
+                              onChange={(e) => this.handleDynamicChange(e, index)}
+                              value={this.state.formData.ingredients || ''}
+                            />
+                            <button onClick={() => this.handleRemove(index)}>Remove Ingredient</button>
+                          </div>
+                        )
+                      })
+                    }
+                    <button onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
                   </div>
 
                   <div className="field">
@@ -208,14 +248,23 @@ class Edit extends React.Component {
 
                   <div className="field">
                     <label className="label">Method</label>
-                    <input
-                      className="input"
-                      name="method"
-                      placeholder="Scramble the eggs, toast the bread"
-                      value={this.state.formData.method || ''}
-                      onChange={this.handleChange}
-                    />
-
+                    {
+                      this.state.steps.map((step, index) => {
+                        return (
+                          <div key={index}>
+                            <input
+                              className="input"
+                              name="method"
+                              placeholder="eg: Whisk the eggs"
+                              onChange={(e) => this.handleDynamicChange2(e, index)}
+                              value={this.state.formData.method || ''}
+                            />
+                            <button onClick={() => this.handleRemove2(index)}>Remove Step</button>
+                          </div>
+                        )
+                      })
+                    }
+                    <button onClick={(e) => this.addStep(e)}>Add Step</button>
                   </div>
 
                   <div className="field">
