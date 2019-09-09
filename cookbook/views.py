@@ -5,10 +5,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
 
-from dotenv import load_dotenv
-load_dotenv()
 from .models import Meal, Recipe, Comment
-from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer, CommentSerializer
+from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer, CommentSerializer, PopulatedCommentSerializer
 
 class RecipeListView(APIView):
 
@@ -37,7 +35,7 @@ class RecipeListView(APIView):
             'saturates': round(stats['FASAT']['quantity']),
             'carbs': round(stats['CHOCDF']['quantity']),
             'sugars': round(stats['SUGAR']['quantity']),
-            'fibre': round(stats['FIBTG']['quantity']),
+            'fibre': round(stats[('FIBTG')]['quantity']) if 'FITBG' in stats else 0,
             'protein': round(stats['PROCNT']['quantity']),
             'salt': round(stats['NA']['quantity'])
         }
@@ -58,7 +56,7 @@ class RecipeDetailView(APIView):
 
     def get(self, _request, pk):
         recipe = Recipe.objects.get(pk=pk)
-        serializer = RecipeSerializer(recipe)
+        serializer = PopulatedRecipeSerializer(recipe)
         return Response(serializer.data)
 
     def put(self, request, pk):
@@ -127,8 +125,8 @@ class CommentView(APIView):
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            comment = serializer.instance
-            serializer = CommentSerializer(comment)
+            recipe = serializer.instance.recipe
+            serializer = PopulatedRecipeSerializer(recipe)
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=422)
@@ -139,7 +137,7 @@ class CommentListView(APIView):
 
     def get(self, _request, recipe):
         comments = Comment.objects.all().filter(recipe=recipe)
-        serializer = CommentSerializer(comments, many=True)
+        serializer = PopulatedCommentSerializer(comments, many=True)
         return Response(serializer.data)
 
 class CommentDetailView(APIView):
@@ -148,7 +146,7 @@ class CommentDetailView(APIView):
 
     def get(self, _request, pk):
         comment = Comment.objects.get(pk=pk)
-        serializer = CommentSerializer(comment)
+        serializer = PopulatedCommentSerializer(comment)
         return Response(serializer.data)
 
     def put(self, request, pk):

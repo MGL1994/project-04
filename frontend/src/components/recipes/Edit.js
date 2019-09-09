@@ -164,7 +164,7 @@ class Edit extends React.Component {
                     <label className="label">Image</label>
                     <ReactFilestack
                       mode="transform"
-                      apikey=
+                      apikey={process.env.REACT_APP_API_KEY}
                       buttonText="Upload Photo"
                       buttonClass="button"
                       className="upload-image"

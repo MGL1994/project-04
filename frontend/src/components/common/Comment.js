@@ -5,7 +5,7 @@ const Comment = ({ id, user, content, handleDeleteComment }) => {
   return (
     <section className="section">
       <div className="container">
-        <p>{user}</p>
+        <p>{user.username}</p>
         <p>{content}</p>
       </div>
       <div className="container">

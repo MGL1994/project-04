@@ -1,5 +1,12 @@
 from rest_framework import serializers
 from .models import Equipment, Tag, Meal, Comment, Recipe
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', )
 
 class EquipmentSerializer(serializers.ModelSerializer):
 
@@ -20,6 +27,7 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', )
 
 class CommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
 
     class Meta:
         model = Comment
@@ -29,8 +37,10 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title', 'image', 'ingredients', 'equipment', 'prep_time', 'cook_time', 'portions', 'method', 'meal', 'tags', 'created', 'user', 'calories', 'fat', 'saturates', 'carbs', 'sugars', 'fibre', 'protein', 'salt',)
+        fields = '__all__'
 
+class PopulatedCommentSerializer(CommentSerializer):
+    user = UserSerializer()
 
 class PopulatedMealSerializer(MealSerializer):
     recipes = RecipeSerializer(many=True)
@@ -42,3 +52,5 @@ class PopulatedRecipeSerializer(RecipeSerializer):
     equipment = EquipmentSerializer(many=True)
     meal = MealSerializer()
     tags = TagSerializer(many=True)
+    user = UserSerializer()
+    comments = CommentSerializer(many=True)

@@ -14,7 +14,6 @@ class ShowRecipe extends React.Component {
 
     this.state = {
       ingredients: [],
-      comments: [],
       formData: {
         content: ''
       }
@@ -33,11 +32,6 @@ class ShowRecipe extends React.Component {
       .get(`api/recipes/${this.props.match.params.id}`)
       .then(res => {
         this.setState({ recipe: res.data })
-      })
-    axios
-      .get(`api/comments/${this.props.match.params.id}`)
-      .then(res => {
-        this.setState({ comments: res.data })
       })
   }
 
@@ -77,8 +71,9 @@ class ShowRecipe extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     if(!this.state.recipe) return null
+    console.log(this.state.recipe)
+
     return(
 
       <section className="section">
@@ -87,9 +82,9 @@ class ShowRecipe extends React.Component {
             <div className="column">
               <img src={this.state.recipe.image}/>
               <hr />
-              <p><span className="has-text-weight-bold">Tags: </span>{this.state.recipe.tags}</p>
+              <p><span className="has-text-weight-bold">Tags: </span>{this.state.recipe.tags[0].name}</p>
               <hr />
-              <p><span className="has-text-weight-bold">Posted: </span>{this.state.recipe.created} | <span className="has-text-weight-bold">By: </span>{this.state.recipe.user}</p>
+              <p><span className="has-text-weight-bold">Posted: </span>{this.state.recipe.created.split('-').reverse().join('-')} | <span className="has-text-weight-bold">By: </span>{this.state.recipe.user.username}</p>
               <hr />
               {Auth.currentUser() === this.state.recipe.user && <div className="buttons">
                 <Link className="button" to={`/recipes/${this.state.recipe.id}/edit`}>Edit</Link>
@@ -111,13 +106,13 @@ class ShowRecipe extends React.Component {
                 <div className="level-item has-text-centered">
                   <div>
                     <p className="heading">Prep Time</p>
-                    <p className="subtitle">{this.state.recipe.prep_time}</p>
+                    <p className="subtitle">{this.state.recipe.prep_time.slice(3)} hrs</p>
                   </div>
                 </div>
                 <div className="level-item has-text-centered">
                   <div>
                     <p className="heading">Cook Time</p>
-                    <p className="subtitle">{this.state.recipe.cook_time}</p>
+                    <p className="subtitle">{this.state.recipe.cook_time.slice(3)} hrs</p>
                   </div>
                 </div>
               </nav>
@@ -128,7 +123,7 @@ class ShowRecipe extends React.Component {
                 <div className="level-item has-text-centered">
                   <div>
                     <p className="heading">Equipment</p>
-                    <p className="subtitle">{this.state.recipe.equipment}</p>
+                    <p className="subtitle">{this.state.recipe.equipment[0].name}</p>
                   </div>
                 </div>
               </nav>
@@ -146,12 +141,12 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.calories / 2000) * 100)}%</p>
                     </div>
                   </div>
                 </div>
                 <div className="column">
-                  <div className="card">
+                  <div className={'card ' + (this.state.recipe.fat < 3 ? 'has-background-success' : this.state.recipe.fat < 17.5 ? 'has-background-warning' : 'has-background-danger')}>
                     <div className="card-content">
                       <p>Fat</p>
                     </div>
@@ -160,12 +155,12 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.fat / 70) * 100)}%</p>
                     </div>
                   </div>
                 </div>
                 <div className="column">
-                  <div className="card">
+                  <div className={'card ' + (this.state.recipe.saturates < 1.5 ? 'has-background-success' : this.state.recipe.saturates < 5 ? 'has-background-warning' : 'has-background-danger')}>
                     <div className="card-content">
                       <p>Saturates</p>
                     </div>
@@ -174,12 +169,12 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.saturates / 20) * 100)}%</p>
                     </div>
                   </div>
                 </div>
                 <div className="column">
-                  <div className="card">
+                  <div className={'card ' + (this.state.recipe.saturates < 5 ? 'has-background-success' : this.state.recipe.saturates < 22.5 ? 'has-background-warning' : 'has-background-danger')}>
                     <div className="card-content">
                       <p>Sugars</p>
                     </div>
@@ -188,21 +183,21 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.sugars / 90) * 100)}%</p>
                     </div>
                   </div>
                 </div>
                 <div className="column">
-                  <div className="card">
+                  <div className={'card ' + ((this.state.recipe.salt / 1000) < 0.3 ? 'has-background-success' : (this.state.recipe.salt / 1000) < 1.5 ? 'has-background-warning' : 'has-background-danger')}>
                     <div className="card-content">
                       <p>Salt</p>
                     </div>
                     <div className="card-content">
-                      <p>{this.state.recipe.salt}g</p>
+                      <p>{(this.state.recipe.salt / 1000).toFixed(2)}g</p>
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round(((this.state.recipe.salt / 1000) / 6) * 100)}%</p>
                     </div>
                   </div>
                 </div>
@@ -216,7 +211,7 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.fat / 50) * 100)}%</p>
                     </div>
                   </div>
                 </div>
@@ -230,7 +225,7 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.carbs/ 260) * 100)}%</p>
                     </div>
                   </div>
                 </div>
@@ -244,7 +239,7 @@ class ShowRecipe extends React.Component {
                     </div>
                     <hr />
                     <div className="card-content">
-                      <p>25%</p>
+                      <p>{Math.round((this.state.recipe.fibre / 30) * 100)}%</p>
                     </div>
                   </div>
                 </div>
@@ -286,8 +281,7 @@ class ShowRecipe extends React.Component {
           </form>}
           <hr />
           <h2 className="subtitle">Comments</h2>
-          {!this.state.comments && <h2 className="title is-2">Loading...</h2>}
-          {this.state.comments.map(comment =>
+          {this.state.recipe.comments.map(comment =>
             <Comment
               key={comment.id}
               {...comment}
