@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Equipment, Tag, Meal, Comment, Recipe
 from django.contrib.auth.models import User
+from .models import Equipment, Tag, Meal, Comment, Recipe
 
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', )
+        fields = ('id', 'username', )
 
 class EquipmentSerializer(serializers.ModelSerializer):
 
@@ -27,7 +27,6 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', )
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
 
     class Meta:
         model = Comment

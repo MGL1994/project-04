@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 import Auth from '../../lib/Auth'
-import NutritionCard from '../common/NutritionCard'
 import Comment from '../common/Comment'
 
 
@@ -16,13 +15,17 @@ class ShowRecipe extends React.Component {
       ingredients: [],
       formData: {
         content: ''
-      }
+      },
+      ingredientsTab: true,
+      methodTab: false
     }
 
     this.handleDelete = this.handleDelete.bind(this)
     this.handleDeleteComment = this.handleDeleteComment.bind(this)
     this.handleChangeContent = this.handleChangeContent.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleIngredientsTab = this.handleIngredientsTab.bind(this)
+    this.handleMethodTab = this.handleMethodTab.bind(this)
 
   }
 
@@ -33,6 +36,24 @@ class ShowRecipe extends React.Component {
       .then(res => {
         this.setState({ recipe: res.data })
       })
+  }
+
+  handleIngredientsTab(e) {
+    e.target.parentElement.classList.add('is-active')
+    e.target.parentElement.nextElementSibling.classList.remove('is-active')
+    this.setState({
+      ingredientsTab: true,
+      methodTab: false
+    })
+  }
+
+  handleMethodTab(e) {
+    e.target.parentElement.classList.add('is-active')
+    e.target.parentElement.previousElementSibling.classList.remove('is-active')
+    this.setState({
+      ingredientsTab: false,
+      methodTab: true
+    })
   }
 
   handleChangeContent(e) {
@@ -73,7 +94,6 @@ class ShowRecipe extends React.Component {
   render() {
     if(!this.state.recipe) return null
     console.log(this.state.recipe)
-
     return(
 
       <section className="section">
@@ -82,11 +102,11 @@ class ShowRecipe extends React.Component {
             <div className="column">
               <img src={this.state.recipe.image}/>
               <hr />
-              <p><span className="has-text-weight-bold">Tags: </span>{this.state.recipe.tags[0].name}</p>
+              <p><span className="has-text-weight-bold">Tags: </span>{this.state.recipe.tags.map(tags => <span key={tags.id} className="tag is-info">{tags.name}</span>)}</p>
               <hr />
               <p><span className="has-text-weight-bold">Posted: </span>{this.state.recipe.created.split('-').reverse().join('-')} | <span className="has-text-weight-bold">By: </span>{this.state.recipe.user.username}</p>
               <hr />
-              {Auth.currentUser() === this.state.recipe.user && <div className="buttons">
+              {Auth.currentUser() === this.state.recipe.user.id && <div className="buttons">
                 <Link className="button" to={`/recipes/${this.state.recipe.id}/edit`}>Edit</Link>
                 <Link className="button" onClick={this.handleDelete}>Delete</Link>
               </div>}
@@ -123,148 +143,84 @@ class ShowRecipe extends React.Component {
                 <div className="level-item has-text-centered">
                   <div>
                     <p className="heading">Equipment</p>
-                    <p className="subtitle">{this.state.recipe.equipment[0].name}</p>
+                    <div className="tags are-medium">
+                      {this.state.recipe.equipment.map(equipment => <span key={equipment.id} className="tag is-info">{equipment.name}</span>)}
+                    </div>
                   </div>
                 </div>
               </nav>
-
               <hr />
-
-              <div className="columns has-text-centered">
+              <div className="columns">
                 <div className="column">
-                  <div className="card">
-                    <div className="card-content">
-                      <p>Calories</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.calories}</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.calories / 2000) * 100)}%</p>
-                    </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Calories</span>
+                    <span className="tag">{this.state.recipe.calories} | {Math.round((this.state.recipe.calories / 2000) * 100)}%</span>
+                  </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Protein</span>
+                    <span className="tag">{this.state.recipe.protein}g | {Math.round((this.state.recipe.fat / 50) * 100)}%</span>
                   </div>
                 </div>
                 <div className="column">
-                  <div className={'card ' + (this.state.recipe.fat < 3 ? 'has-background-success' : this.state.recipe.fat < 17.5 ? 'has-background-warning' : 'has-background-danger')}>
-                    <div className="card-content">
-                      <p>Fat</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.fat}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.fat / 70) * 100)}%</p>
-                    </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Carbs</span>
+                    <span className="tag">{this.state.recipe.carbs}g | {Math.round((this.state.recipe.carbs/ 260) * 100)}%</span>
+                  </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Fibre</span>
+                    <span className="tag">{this.state.recipe.fibre}g | {Math.round((this.state.recipe.fibre / 30) * 100)}%</span>
                   </div>
                 </div>
                 <div className="column">
-                  <div className={'card ' + (this.state.recipe.saturates < 1.5 ? 'has-background-success' : this.state.recipe.saturates < 5 ? 'has-background-warning' : 'has-background-danger')}>
-                    <div className="card-content">
-                      <p>Saturates</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.saturates}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.saturates / 20) * 100)}%</p>
-                    </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Salt</span>
+                    <span className={'tag ' + ((this.state.recipe.salt / 1000) < 0.3 ? 'has-background-success' : (this.state.recipe.salt / 1000) < 1.5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{(this.state.recipe.salt / 1000).toFixed(2)}g | {Math.round(((this.state.recipe.salt / 1000) / 6) * 100)}%</span>
+                  </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Fat</span>
+                    <span className={'tag ' + (this.state.recipe.fat < 3 ? 'has-background-success' : this.state.recipe.fat < 17.5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{this.state.recipe.fat}g | {Math.round((this.state.recipe.fat / 70) * 100)}%</span>
                   </div>
                 </div>
                 <div className="column">
-                  <div className={'card ' + (this.state.recipe.saturates < 5 ? 'has-background-success' : this.state.recipe.saturates < 22.5 ? 'has-background-warning' : 'has-background-danger')}>
-                    <div className="card-content">
-                      <p>Sugars</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.sugars}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.sugars / 90) * 100)}%</p>
-                    </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Saturates</span>
+                    <span className={'tag ' + (this.state.recipe.saturates < 1.5 ? 'has-background-success' : this.state.recipe.saturates < 5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{this.state.recipe.saturates}g | {Math.round((this.state.recipe.saturates / 20) * 100)}%</span>
                   </div>
-                </div>
-                <div className="column">
-                  <div className={'card ' + ((this.state.recipe.salt / 1000) < 0.3 ? 'has-background-success' : (this.state.recipe.salt / 1000) < 1.5 ? 'has-background-warning' : 'has-background-danger')}>
-                    <div className="card-content">
-                      <p>Salt</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{(this.state.recipe.salt / 1000).toFixed(2)}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round(((this.state.recipe.salt / 1000) / 6) * 100)}%</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="card">
-                    <div className="card-content">
-                      <p>Protein</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.protein}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.fat / 50) * 100)}%</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="card">
-                    <div className="card-content">
-                      <p>Carbs</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.carbs}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.carbs/ 260) * 100)}%</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="column">
-                  <div className="card">
-                    <div className="card-content">
-                      <p>Fibre</p>
-                    </div>
-                    <div className="card-content">
-                      <p>{this.state.recipe.fibre}g</p>
-                    </div>
-                    <hr />
-                    <div className="card-content">
-                      <p>{Math.round((this.state.recipe.fibre / 30) * 100)}%</p>
-                    </div>
+                  <div className="tags has-addons">
+                    <span className="tag is-dark">Sugars</span>
+                    <span className={'tag ' + (this.state.recipe.saturates < 5 ? 'has-background-success' : this.state.recipe.saturates < 22.5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{this.state.recipe.sugars}g | {Math.round((this.state.recipe.sugars / 90) * 100)}%</span>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-            </div>
-          </div>
+        <div className="tabs is-toggle is-toggle-rounded is-centered">
+          <ul>
+            <li className="is-active" onClick={this.handleIngredientsTab}>
+              <a>Ingredients</a>
+            </li>
+            <li onClick={this.handleMethodTab}>
+              <a>Method</a>
+            </li>
+          </ul>
         </div>
-        <hr />
-        <div className="container">
-          <div className="columns">
-            <div className="column">
-              <h2 className="subtitle">Ingredients</h2>
-              {this.state.recipe.ingredients.map(ingredient =>
-                <p key={this.state.recipe.ingredients.indexOf(ingredient)}>{this.state.recipe.ingredients.indexOf(ingredient) + 1}. {ingredient}</p>)
-              }
-            </div>
-            <div className="column">
-              <h2 className="subtitle">Method</h2>
-              {this.state.recipe.method.map(step =>
-                <p key={this.state.recipe.method.indexOf(step)}>{this.state.recipe.method.indexOf(step) + 1}. {step}</p>)
-              }
-            </div>
-          </div>
-        </div>
+
+        {this.state.ingredientsTab && <div className="container has-text-centered">
+          <h2 className="subtitle">Ingredients</h2>
+          {this.state.recipe.ingredients.map(ingredient =>
+            <p key={this.state.recipe.ingredients.indexOf(ingredient)}>{ingredient}</p>)
+          }
+        </div>}
+
+        {this.state.methodTab && <div className="container has-text-centered">
+          <h2 className="subtitle">Method</h2>
+          {this.state.recipe.method.map(step =>
+            <p key={this.state.recipe.method.indexOf(step)}><span className="subtitle is-4"><br />Step {this.state.recipe.method.indexOf(step) + 1}:<br /></span> {step}</p>)
+          }
+        </div>}
+
         <hr />
         <div className="container">
           {Auth.isAuthenticated() && <form onSubmit={this.handleSubmit}>

@@ -42,7 +42,6 @@ class Edit extends React.Component {
   constructor() {
     super()
     this.state = {
-      formData: {},
       errors: {},
       file: null,
       ingredients: [],
@@ -62,7 +61,7 @@ class Edit extends React.Component {
       title: this.state.formData.title,
       image: this.state.formData.image,
       ingredients: this.state.formData.ingredients,
-      equipment: this.state.formData.equipment,
+      equipment: this.state.formData.equipment.map(equipment => equipment.value),
       prep_time: this.state.formData.prep_time,
       cook_time: this.state.formData.cook_time,
       portions: this.state.formData.portions,
@@ -70,8 +69,6 @@ class Edit extends React.Component {
       meal: this.state.formData.meal,
       tags: this.state.formData.tags
     }
-
-    console.log(cleanedData)
 
     axios.put(`/api/recipes/${this.props.match.params.id}/`, cleanedData, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
@@ -102,12 +99,17 @@ class Edit extends React.Component {
     this.setState({ formData })
   }
 
-  handleDynamicChange(e, index) {
-    this.state.ingredients[index] = e.target.value
-    this.setState({ ingredients: this.state.ingredients })
+  handleDynamicIngredientChange(e, index) {
+    const ingredients = [
+      ...this.state.ingredients.slice(0, index),
+      e.target.value,
+      ...this.state.ingredients.slice(index + 1)
+    ]
+
+    this.setState({ ingredients })
   }
 
-  handleDynamicChange2(e, index) {
+  handleDynamicStepChange(e, index) {
     this.state.steps[index] = e.target.value
     this.setState({ steps: this.state.steps })
   }
@@ -120,12 +122,12 @@ class Edit extends React.Component {
     this.setState({ steps: [...this.state.steps, '']})
   }
 
-  handleRemove(index) {
+  handleRemoveIngredient(index) {
     this.state.ingredients.splice(index, 1)
     this.setState({ ingredients: this.state.ingredients })
   }
 
-  handleRemove2(index) {
+  handleRemoveStep(index) {
     this.state.steps.splice(index, 1)
     this.setState({ steps: this.state.steps })
   }
@@ -137,8 +139,10 @@ class Edit extends React.Component {
   }
 
   render() {
-    const selectedEquipment = (this.state.formData.equipment || []).map(equipment => ({ label: equipment, value: equipment }))
-    const selectedTags = (this.state.formData.tags || []).map(tags => ({ label: tags, value: tags }))
+    if(!this.state.formData) return null
+    const selectedEquipment = (this.state.formData.equipment || []).map(equipment => ({ label: equipment.name, value: equipment.id }))
+    const selectedTags = (this.state.formData.tags || []).map(tag => ({ label: tag.name, value: tag.id }))
+
     return (
       <section className="hero is-light">
         <div className="hero-body">
@@ -178,17 +182,17 @@ class Edit extends React.Component {
                   <div className="field">
                     <label className="label">Ingredients</label>
                     {
-                      this.state.ingredients.map((ingredient, index) => {
+                      this.state.formData.ingredients.map((ingredient, index) => {
                         return (
                           <div key={index}>
                             <input
                               className="input"
                               name="ingredients"
                               placeholder="eg: 3 eggs"
-                              onChange={(e) => this.handleDynamicChange(e, index)}
-                              value={this.state.formData.ingredients || ''}
+                              onChange={(e) => this.handleDynamicIngredientChange(e, index)}
+                              value={ingredient || ''}
                             />
-                            <button onClick={() => this.handleRemove(index)}>Remove Ingredient</button>
+                            <button onClick={() => this.handleRemoveIngredient(index)}>Remove Ingredient</button>
                           </div>
                         )
                       })
@@ -256,10 +260,10 @@ class Edit extends React.Component {
                               className="input"
                               name="method"
                               placeholder="eg: Whisk the eggs"
-                              onChange={(e) => this.handleDynamicChange2(e, index)}
+                              onChange={(e) => this.handleDynamicStepChange(e, index)}
                               value={this.state.formData.method || ''}
                             />
-                            <button onClick={() => this.handleRemove2(index)}>Remove Step</button>
+                            <button onClick={() => this.handleRemoveStep(index)}>Remove Step</button>
                           </div>
                         )
                       })

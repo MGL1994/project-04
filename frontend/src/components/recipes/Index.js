@@ -16,7 +16,7 @@ class RecipesIndex extends React.Component{
   componentDidMount() {
     axios.get('/api/recipes')
       .then(res => {
-        console.log(res.data)
+        res.data.reverse()
         this.setState({ recipes: res.data })
       })
   }
