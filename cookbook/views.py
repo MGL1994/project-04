@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
 
-from .models import Meal, Recipe, Comment
-from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer, CommentSerializer, PopulatedCommentSerializer
+from .models import Meal, Recipe, Comment, Tag, Equipment, Meal
+from .serializers import MealSerializer, RecipeSerializer, PopulatedMealSerializer, PopulatedRecipeSerializer, CommentSerializer, PopulatedCommentSerializer, EquipmentSerializer, TagSerializer
 
 class RecipeListView(APIView):
 
@@ -187,3 +187,21 @@ class CommentDetailView(APIView):
         comment.delete()
 
         return Response(status=204)
+
+class EquipmentListView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def get(self, _request):
+        equipment = Equipment.objects.all()
+        serializer = PopulatedMealSerializer(equipment, many=True)
+        return Response(serializer.data)
+
+class TagListView(APIView):
+
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def get(self, _request):
+        tags = Tag.objects.all()
+        serializer = PopulatedMealSerializer(tags, many=True)
+        return Response(serializer.data)

@@ -150,7 +150,6 @@ class Edit extends React.Component {
   componentDidMount() {
     axios.get(`/api/recipes/${this.props.match.params.id}`)
       .then(res => this.setState({ formData: res.data }))
-      // .then(this.setState({ ingredients: this.state.formData.ingredients }))
   }
 
   render() {

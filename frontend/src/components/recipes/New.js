@@ -5,24 +5,6 @@ import Select from 'react-select'
 
 import Auth from '../../lib/Auth'
 
-const equipmentOptions = [
-  { value: 1, label: 'Whisk' },
-  { value: 2, label: 'Frying Pan' }
-]
-
-const mealOptions = [
-  { value: 1, label: 'Breakfast' },
-  { value: 2, label: 'Lunch' },
-  { value: 3, label: 'Dinner' },
-  { value: 4, label: 'Dessert' },
-  { value: 5, label: 'Snack' }
-]
-
-const tagOptions = [
-  { value: 1, label: 'Healthy' },
-  { value: 2, label: 'Vegetarian' }
-]
-
 const options = {
   accept: 'image/*',
   options: {
@@ -46,13 +28,40 @@ class New extends React.Component {
       errors: {},
       file: null,
       ingredients: [],
-      steps: []
+      steps: [],
+      mealOptions: {},
+      tagOptions: {},
+      equipmentOptions: {}
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleMultiChange = this.handleMultiChange.bind(this)
+  }
+
+  componentDidMount() {
+    axios.get('/api/meals')
+      .then(res => {
+        res.data.reverse()
+        this.setState({ mealOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
+    axios.get('/api/equipment')
+      .then(res => {
+        res.data.reverse()
+        this.setState({ equipmentOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
+    axios.get('/api/tags')
+      .then(res => {
+        res.data.reverse()
+        this.setState({ tagOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
   }
 
   handleSubmit(e) {
@@ -130,6 +139,7 @@ class New extends React.Component {
   }
 
   render() {
+    console.log(this.state.mealOptions)
     return (
 
       <section className="hero is-light">
@@ -192,7 +202,7 @@ class New extends React.Component {
                     <Select
                       isMulti
                       name="equipment"
-                      options={equipmentOptions}
+                      options={this.state.equipmentOptions}
                       onChange={this.handleMultiChange}
                     />
                   </div>
@@ -258,7 +268,7 @@ class New extends React.Component {
                     <label className="label">Meal</label>
                     <Select
                       name="meal"
-                      options={mealOptions}
+                      options={this.state.mealOptions}
                       onChange={this.handleSelectChange}
                     />
                   </div>
@@ -268,7 +278,7 @@ class New extends React.Component {
                     <Select
                       isMulti
                       name="tags"
-                      options={tagOptions}
+                      options={this.state.tagOptions}
                       onChange={this.handleMultiChange}
                     />
                   </div>

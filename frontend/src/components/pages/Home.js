@@ -2,10 +2,11 @@ import React from 'react'
 import IndexPreview from '../../images/IndexPreview.png'
 import RecipePreview from '../../images/RecipePreview.png'
 import NewRecipePreview from '../../images/NewRecipePreview.png'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Auth from '../../lib/Auth'
 
 class Home extends React.Component {
+
   constructor() {
     super()
 
@@ -40,7 +41,7 @@ class Home extends React.Component {
               <div className="column">
                 <h3 className="title is-3">Get Cooking</h3>
                 <hr />
-                <h4 className="subtitle is-5">We make sure to display as much information as possible to make it easy to have a go yourself. Our third party API also includes nutritional information so you don't have to worry.
+                <h4 className="subtitle is-5">We make sure to display as much information as possible to make it easy to have a go yourself. Our third party API also includes nutritional information so you don&apos;t have to worry.
                 </h4>
                 <div id="edamam-badge" data-color="white"></div>
               </div>
@@ -54,7 +55,7 @@ class Home extends React.Component {
               <div className="column">
                 <h3 className="title is-3">Easy Uploading</h3>
                 <hr />
-                <h4 className="subtitle is-5">You don't need to be a wordsmith to contribute. Our easy uploading page means you can spend less time writing and more time creating new recipes.
+                <h4 className="subtitle is-5">You don&apos;t need to be a wordsmith to contribute. Our easy uploading page means you can spend less time writing and more time creating new recipes.
                 </h4>
               </div>
               <div className="column">
