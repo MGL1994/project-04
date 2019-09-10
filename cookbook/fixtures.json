@@ -1,0 +1,388 @@
+[
+{
+  "model": "cookbook.equipment",
+  "pk": 1,
+  "fields": {
+    "name": "Food Processor"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 2,
+  "fields": {
+    "name": "Frying Pan"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 3,
+  "fields": {
+    "name": "Baking Tray"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 4,
+  "fields": {
+    "name": "Wooden Spoon"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 5,
+  "fields": {
+    "name": "Blender"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 6,
+  "fields": {
+    "name": "Bowl"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 7,
+  "fields": {
+    "name": "Knife"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 8,
+  "fields": {
+    "name": "Saucepan"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 9,
+  "fields": {
+    "name": "Grater"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 10,
+  "fields": {
+    "name": "Cooking Pot"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 11,
+  "fields": {
+    "name": "Bowl"
+  }
+},
+{
+  "model": "cookbook.equipment",
+  "pk": 12,
+  "fields": {
+    "name": "Spatula"
+  }
+},
+{
+  "model": "cookbook.meal",
+  "pk": 1,
+  "fields": {
+    "name": "Breakfast",
+    "user": 1
+  }
+},
+{
+  "model": "cookbook.meal",
+  "pk": 2,
+  "fields": {
+    "name": "Lunch",
+    "user": 1
+  }
+},
+{
+  "model": "cookbook.meal",
+  "pk": 3,
+  "fields": {
+    "name": "Dinner",
+    "user": 1
+  }
+},
+{
+  "model": "cookbook.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Easy"
+  }
+},
+{
+  "model": "cookbook.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Healthy"
+  }
+},
+{
+  "model": "cookbook.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Vegetarian"
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 1,
+  "fields": {
+    "title": "Steak with chimichurri sauce",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--981490_11.jpg?itok=cK4vvVpC",
+    "ingredients": "[\"small bunch parsley\", \"roughly\", \"\\u00bd tsp oregano\", \"2 garlic cloves\", \"1 shallot\", \"\\u00bd tsp chilli flakes\", \"2\\u00bd tbsp olive oil\", \"juice \\u00bd lemon\", \"2 tsp red wine vinegar\", \"2 x 125g rib-eye or sirloin steaks\", \"fries\", \"salad\"]",
+    "prep_time": "00:00:10",
+    "cook_time": "00:00:08",
+    "portions": 2,
+    "method": "[\"Combine the herbs and shallots in the food processor\", \"Add the olive oil and lemon juice\", \"Then add the vinegar and set the sauce aside\", \"Finally fry the steaks for 2-3 minutes each side before serving with chips and fries\"]",
+    "meal": 3,
+    "created": "2019-8-9",
+    "user": 2,
+    "calories": 303,
+    "fat": 20,
+    "saturates": 5,
+    "carbs": 1,
+    "sugars": 1,
+    "fibre": 1,
+    "protein": 30,
+    "salt": 300,
+    "equipment": [
+      1,
+      2
+    ],
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 2,
+  "fields": {
+    "title": "Creamy chicken, bean & leek traybake",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2019/08/creamy-chicken-bean-leek-traybake.jpg?itok=kNA2S6cF",
+    "ingredients": "[\"2 tbsp olive oil\", \"8 chicken thighs\", \"3 leeks\", \"2 large garlic cloves\", \"2 x 400g cans cannellini beans\", \"500ml hot chicken stock\", \"2 tbsp wholegrain mustard\", \"100g cr\\u00e8me fra\\u00eeche\", \"1 large lemon\", \"crusty bread\"]",
+    "prep_time": "00:00:05",
+    "cook_time": "00:00:50",
+    "portions": 4,
+    "method": "[\"Heat the oven to 200C/180C fan/gas 6\", \"Heat the oil over a high heat in a large non-stick frying pan\", \"Fry the chicken skin-side down for 5 minutes then transfer to a baking tray\", \"Fry the leeks and garlic until softened\", \"Stir in the beans then transfer to the tray along with the chicken stock\", \"Roast for 20 minutes then stir in the mustard and cream\", \"Then bake for a further 15 minutes\", \"Serve with crusty bread\"]",
+    "meal": 3,
+    "created": "2019-8-9",
+    "user": 3,
+    "calories": 547,
+    "fat": 32,
+    "saturates": 13,
+    "carbs": 23,
+    "sugars": 5,
+    "fibre": 12,
+    "protein": 34,
+    "salt": 1700,
+    "equipment": [
+      2,
+      3,
+      4
+    ],
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 3,
+  "fields": {
+    "title": "Green breakfast smoothie",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/green-breakfast-smoothie.jpg?itok=_GSLCCLt",
+    "ingredients": "[\"1 handful spinach (about 50g/2oz)\", \"100g broccoli florets\", \"2 celery sticks\", \"4 tbsp desiccated coconut\", \"300ml rice milk\", \"\\u00bc tsp spirulina\", \"1 scoop of greens powder or vegan protein powder\"]",
+    "prep_time": "00:00:10",
+    "cook_time": "00:00:00",
+    "portions": 2,
+    "method": "[\"Whizz 300ml water and the ingredients in a blender until smooth.\"]",
+    "meal": 1,
+    "created": "2019-8-9",
+    "user": 2,
+    "calories": 243,
+    "fat": 10,
+    "saturates": 7,
+    "carbs": 27,
+    "sugars": 18,
+    "fibre": 6,
+    "protein": 7,
+    "salt": 400,
+    "equipment": [
+      5
+    ],
+    "tags": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 4,
+  "fields": {
+    "title": "Turkey & clementine lunch bowl",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2018/11/turkey-clementine-lunch-bowl-440-400.jpg?itok=B3T_apzX",
+    "ingredients": "[\"1 red onion\", \"1 lemon\", \"300g turkey breast\", \"2 tbsp rapeseed oil\", \"2 clementines\", \"2 garlic cloves\", \"400g can green lentils\", \"1 tbsp balsamic vinegar\", \"1 red pepper\", \"small handful mint\", \"4 walnut halves\"]",
+    "prep_time": "00:00:15",
+    "cook_time": "00:00:15",
+    "portions": 2,
+    "method": "[\"Tip the onion into a bowl and mix with the lemon juice\", \"Put the turkey in a bowl and add half the oil as well as the lemon and clementine zest and the garlic then mix well\", \"Stir fry the pepper and onion for five minutes\", \"Add the turkey and cook for another two minutes\", \"Combine all the ingredients to make the salad\"]",
+    "meal": 2,
+    "created": "2019-8-9",
+    "user": 3,
+    "calories": 509,
+    "fat": 18,
+    "saturates": 2,
+    "carbs": 34,
+    "sugars": 16,
+    "fibre": 10,
+    "protein": 48,
+    "salt": 600,
+    "equipment": [
+      2,
+      6,
+      7
+    ],
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 5,
+  "fields": {
+    "title": "Spiced carrot & lentil soup",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--1074500_11.jpg?itok=IwEifJO_",
+    "ingredients": "[\"2 tsp cumin seeds\", \"pinch chilli flakes\", \"2 tbsp olive oil\", \"600g carrots\", \"140g split red lentils\", \"1l hot vegetable stock\", \"125ml milk\", \"plain yogurt and naan bread\"]",
+    "prep_time": "00:00:10",
+    "cook_time": "00:00:15",
+    "portions": 4,
+    "method": "[\"Heat a large saucepan and dry-fry 2 tsp cumin seeds and a pinch of chilli flakes for 1 min or until they start to jump around the pan and release their aromas\", \"Scoop out about half with a spoon and set aside\", \"Add the remaining ingredients and bring to the boil\", \"Simmer for 15 mins until the lentils have swollen and softened\", \"Whizz the soup with a stick blender or in a food processor until smooth (or leave it chunky if you prefer)\", \"Season to taste and finish with a dollop of plain yogurt and a sprinkling of the reserved toasted spices. Serve with warmed naan breads\"]",
+    "meal": 2,
+    "created": "2019-8-9",
+    "user": 2,
+    "calories": 238,
+    "fat": 7,
+    "saturates": 1,
+    "carbs": 34,
+    "sugars": 0,
+    "fibre": 5,
+    "protein": 11,
+    "salt": 250,
+    "equipment": [
+      8,
+      1,
+      9
+    ],
+    "tags": [
+      1,
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 6,
+  "fields": {
+    "title": "Butternut squash & sage risotto",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--1040452_11.jpg?itok=q_PHrXEm",
+    "ingredients": "[\"1kg butternut squash\", \"3 tbsp olive oil\", \"bunch sage\", \"1\\u00bd l vegetable stock\", \"50g butter\", \"1 onion\", \"300g risotto rice\", \"1 small glass white wine\", \"50g parmesan\"]",
+    "prep_time": "00:00:10",
+    "cook_time": "00:00:40",
+    "portions": 4,
+    "method": "[\"Heat oven to 220C/fan 200C/gas 7\", \"Toss the squash in 1 tbsp oil together with the chopped sage. Scatter into a shallow roasting tin and roast for 30 mins until it is brown and soft\", \"Bring the stock to the boil and keep on a low simmer. In a separate pan\", \"melt half the butter over a medium heat. Stir in the onions and sweat gently for 8-10 mins until soft but not coloured\", \"stirring occasionally. Stir the rice into the onions until completely coated in the butter then stir continuously until the rice is shiny and the edges of the grain start to look transparent\", \"Pour in the wine and simmer until totally evaporated. Add the stock a ladleful at a time and stirring the rice over a low heat for 25-30 mins until the rice is cooked al dente (with a slightly firm starchy bite in the middle). The risotto should be creamy and slightly soupy. When you draw a wooden spoon through it there should be a wake that holds for a few moments but not longer\", \"At the same time gently fry the whole sage leaves in a little olive oil until crisp then set aside on kitchen paper. When the squash is cooked mash half of it to a rough pur\\u00e9e and leave half whole. When the risotto is just done stir though the pur\\u00e9e then add the cheese and butter and leave to rest for a few mins. Serve the risotto scattered with the whole chunks of squash and the crisp sage leaves.\"]",
+    "meal": 3,
+    "created": "2019-10-9",
+    "user": 3,
+    "calories": 609,
+    "fat": 24,
+    "saturates": 10,
+    "carbs": 87,
+    "sugars": 17,
+    "fibre": 8,
+    "protein": 15,
+    "salt": 950,
+    "equipment": [
+      9,
+      10,
+      3,
+      4
+    ],
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 7,
+  "fields": {
+    "title": "Fish tacos",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--1308475_3.jpg?itok=ehlpH8QW",
+    "ingredients": "[\"220g pack lemon sole goujons\", \"1 tsp chipotle paste or harissa\", \"6 tbsp mayonnaise\", \"4 soft corn tortillas\", \"175g white cabbage\", \"good handful chopped coriander\", \"1 small red onion\", \"juice 1 small lime\"]",
+    "prep_time": "00:00:15",
+    "cook_time": "00:00:15",
+    "portions": 4,
+    "method": "[\"Heat oven to 220C/200C fan/gas 7. Space the goujons apart on a baking sheet and bake for 12-15 mins following pack instructions until crispy. Meanwhile mix the chipotle or harissa into the mayo and warm the tortillas \\u2013 they are best warmed over a gas flame\", \"To make the salad toss the cabbage coriander and onion with the lime juice and some salt\", \"Spread the tortillas with a little spicy mayo then place the salad and fish down the centre. Top with a little more mayo then fold and eat with your fingers. Serve with lime wedges if you like.\"]",
+    "meal": 3,
+    "created": "2019-10-9",
+    "user": 2,
+    "calories": 312,
+    "fat": 15,
+    "saturates": 2,
+    "carbs": 34,
+    "sugars": 5,
+    "fibre": 3,
+    "protein": 13,
+    "salt": 1200,
+    "equipment": [
+      11,
+      3
+    ],
+    "tags": [
+      2
+    ]
+  }
+},
+{
+  "model": "cookbook.recipe",
+  "pk": 8,
+  "fields": {
+    "title": "Green eggs",
+    "image": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2018/04/green-eggs.jpg?itok=6NoSHcwo",
+    "ingredients": "[\"1\\u00bd tbsp rapeseed oil\", \"2 trimmed leeks\", \"2 garlic cloves\", \"\\u00bd tsp coriander seeds\", \"\\u00bd tsp fennel seeds\", \"pinch of chilli flakes\", \"200g spinach\", \"2 large eggs\", \"2 tbsp Greek yogurt\", \"lemon\"]",
+    "prep_time": "00:00:05",
+    "cook_time": "00:00:15",
+    "portions": 2,
+    "method": "[\"Heat the oil in a large frying pan. Add the leeks and a pinch of salt then cook until soft. Add the garlic coriander fennel and chilli flakes. Once the seeds begin to crackle tip in the spinach and turn down the heat. Stir everything together until the spinach has wilted and reduced then scrape it over to one side of the pan. Pour a little oil into the pan then crack in the eggs and fry until cooked to your liking\", \"Stir the yogurt through the spinach mix and season. Pile onto two plates top with the fried egg squeeze over a little lemon and season with black pepper and chilli flakes to serve.\"]",
+    "meal": 1,
+    "created": "2019-10-9",
+    "user": 2,
+    "calories": 298,
+    "fat": 20,
+    "saturates": 4,
+    "carbs": 8,
+    "sugars": 6,
+    "fibre": 6,
+    "protein": 18,
+    "salt": 600,
+    "equipment": [
+      2,
+      12
+    ],
+    "tags": [
+      1,
+      2,
+      3
+    ]
+  }
+}
+]
