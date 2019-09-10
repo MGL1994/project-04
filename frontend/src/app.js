@@ -5,6 +5,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 
 import Navbar from './components/common/Navbar'
 import SecureRoute from './components/common/SecureRoute'
+import Footer from './components/common/Footer'
 
 import Home from './components/pages/Home'
 import Index from './components/recipes/Index'
@@ -34,6 +35,8 @@ class App extends React.Component {
           <Route path='/recipes' component={Index} />
           <Route exact path='/' component={Home} />
         </Switch>
+
+        <Footer />
 
       </HashRouter>
     )

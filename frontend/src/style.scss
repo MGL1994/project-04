@@ -1,1 +1,19 @@
 @import '~bulma';
+
+.navbar {
+  height: 7rem;
+  padding: 2rem 4rem;
+}
+
+.navbar-item {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.container {
+  padding-bottom: 80px;
+}
+
+.footer {
+  background-color: $primary;
+}

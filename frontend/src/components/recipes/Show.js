@@ -102,7 +102,10 @@ class ShowRecipe extends React.Component {
             <div className="column">
               <img src={this.state.recipe.image}/>
               <hr />
-              <p><span className="has-text-weight-bold">Tags: </span>{this.state.recipe.tags.map(tags => <span key={tags.id} className="tag is-info">{tags.name}</span>)}</p>
+              <p className="has-text-weight-bold">Tags:</p>
+              <div className="tags">
+                {this.state.recipe.tags.map(tags => <span key={tags.id} className="tag is-info">{tags.name}</span>)}
+              </div>
               <hr />
               <p><span className="has-text-weight-bold">Posted: </span>{this.state.recipe.created.split('-').reverse().join('-')} | <span className="has-text-weight-bold">By: </span>{this.state.recipe.user.username}</p>
               <hr />
