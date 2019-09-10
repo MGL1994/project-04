@@ -2,6 +2,8 @@ import React from 'react'
 import IndexPreview from '../../images/IndexPreview.png'
 import RecipePreview from '../../images/RecipePreview.png'
 import NewRecipePreview from '../../images/NewRecipePreview.png'
+import { Link, withRouter } from 'react-router-dom'
+import Auth from '../../lib/Auth'
 
 class Home extends React.Component {
   constructor() {
@@ -21,7 +23,7 @@ class Home extends React.Component {
               <h1 className="title is-1">Share Your Gastronomic Masterpieces With The World</h1>
               <h2 className="subtitle is-3">At Cookbook we believe that all food is art, and it should be put on display. We hope you will join our food revolution and join a community of like-minded individuals who want make recipes accesible for everyone.
               </h2>
-              <a className="button is-primary is-rounded is-large">Join Now</a>
+              {!Auth.isAuthenticated() &&<Link to="/register" className="button is-primary is-rounded is-large">Join Now</Link>}
             </div>
             <div className="column">
               <img src={IndexPreview} alt="Index Preview" />
@@ -40,6 +42,7 @@ class Home extends React.Component {
                 <hr />
                 <h4 className="subtitle is-5">We make sure to display as much information as possible to make it easy to have a go yourself. Our third party API also includes nutritional information so you don't have to worry.
                 </h4>
+                <div id="edamam-badge" data-color="white"></div>
               </div>
             </div>
           </div>

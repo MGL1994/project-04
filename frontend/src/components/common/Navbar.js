@@ -49,7 +49,7 @@ class Navbar extends React.Component {
             <img src={CookbookLogo} alt="CookBook Logo"/>
           </Link>
         </div>
-
+      
         <div className="navbar-end">
           <a
             role="button"
@@ -62,6 +62,7 @@ class Navbar extends React.Component {
           </a>
 
         </div>
+
 
         <div className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}>
           <div className="navbar-start">

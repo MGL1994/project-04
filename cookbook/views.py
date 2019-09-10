@@ -61,7 +61,31 @@ class RecipeDetailView(APIView):
 
     def put(self, request, pk):
         recipe = Recipe.objects.get(pk=pk)
-        serializer = RecipeSerializer(recipe, data=request.data)
+
+        data = request.data
+
+        app_id = os.getenv("APPID")
+        app_key = os.getenv("APPKEY")
+
+        r = requests.post('https://api.edamam.com/api/nutrition-details',
+            params={'app_id':app_id, 'app_key':app_key},
+            json={'title': data['title'], 'ingr': data['ingredients']}
+        )
+
+        stats = r.json()['totalNutrients']
+        nutrition = {
+            'calories': round(stats['ENERC_KCAL']['quantity']),
+            'fat': round(stats['FAT']['quantity']),
+            'saturates': round(stats['FASAT']['quantity']),
+            'carbs': round(stats['CHOCDF']['quantity']),
+            'sugars': round(stats['SUGAR']['quantity']),
+            'fibre': round(stats[('FIBTG')]['quantity']) if 'FITBG' in stats else 0,
+            'protein': round(stats['PROCNT']['quantity']),
+            'salt': round(stats['NA']['quantity'])
+        }
+        data = {**data, **nutrition}
+
+        serializer = RecipeSerializer(recipe, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

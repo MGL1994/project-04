@@ -20,10 +20,12 @@ const Footer = () => {
             <p>Contact Us</p>
           </div>
           <div className="column has-text-white">
-            <p>FaceBook</p>
-            <p>Twitter</p>
-            <p>Instagram</p>
-            <p>&copy; Copyright 2019 CookBook. All rights reserved.</p>
+            <img src="https://www.iconsdb.com/icons/preview/white/facebook-5-xxl.png" alt="Facebook Logo" width="30" />
+
+            <img src="https://www.iconsdb.com/icons/preview/white/twitter-5-xxl.png" alt="Twitter Logo" width="30" />
+
+            <img src="https://www.iconsdb.com/icons/preview/white/instagram-4-xxl.png" alt="Instagram Logo" width="30" />
+            <p className="is-size-7">&copy; Copyright 2019 CookBook. All rights reserved.</p>
           </div>
         </div>
       </div>
