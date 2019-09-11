@@ -110,12 +110,12 @@ class New extends React.Component {
     this.setState({ formData })
   }
 
-  handleDynamicChange(e, index) {
+  handleIngredientChange(e, index) {
     this.state.ingredients[index] = e.target.value
     this.setState({ ingredients: this.state.ingredients })
   }
 
-  handleDynamicChange2(e, index) {
+  handleStepChange(e, index) {
     this.state.steps[index] = e.target.value
     this.setState({ steps: this.state.steps })
   }
@@ -128,12 +128,12 @@ class New extends React.Component {
     this.setState({ steps: [...this.state.steps, '']})
   }
 
-  handleRemove(index) {
+  handleRemoveIngredient(index) {
     this.state.ingredients.splice(index, 1)
     this.setState({ ingredients: this.state.ingredients })
   }
 
-  handleRemove2(index) {
+  handleRemoveStep(index) {
     this.state.steps.splice(index, 1)
     this.setState({ steps: this.state.steps })
   }
@@ -186,10 +186,10 @@ class New extends React.Component {
                               className="input"
                               name="ingredients"
                               placeholder="eg: 3 eggs"
-                              onChange={(e) => this.handleDynamicChange(e, index)}
+                              onChange={(e) => this.handleIngredientChange(e, index)}
                               value={ingredient}
                             />
-                            <button onClick={() => this.handleRemove(index)}>Remove Ingredient</button>
+                            <button onClick={() => this.handleRemoveIngredient(index)}>Remove Ingredient</button>
                           </div>
                         )
                       })
@@ -253,10 +253,10 @@ class New extends React.Component {
                               className="input"
                               name="method"
                               placeholder="eg: Whisk the eggs"
-                              onChange={(e) => this.handleDynamicChange2(e, index)}
+                              onChange={(e) => this.handleStepChange(e, index)}
                               value={step}
                             />
-                            <button onClick={() => this.handleRemove2(index)}>Remove Step</button>
+                            <button onClick={() => this.handleRemoveStep(index)}>Remove Step</button>
                           </div>
                         )
                       })

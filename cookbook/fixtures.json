@@ -384,5 +384,23 @@
       3
     ]
   }
+},
+{
+  "model": "cookbook.comment",
+  "pk": 1,
+  "fields": {
+    "content": "Loving your work! Tried this at home and it's so tasty.",
+    "user": 3,
+    "recipe": 7
+  }
+},
+{
+  "model": "cookbook.comment",
+  "pk": 2,
+  "fields": {
+    "content": "Top recipe, can't wait to see what you make next...",
+    "user": 2,
+    "recipe": 7
+  }
 }
 ]
