@@ -26,9 +26,9 @@ class Edit extends React.Component {
     this.state = {
       errors: {},
       file: null,
-      mealOptions: {},
-      tagOptions: {},
-      equipmentOptions: {}
+      mealOptions: [],
+      tagOptions: [],
+      equipmentOptions: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -94,9 +94,9 @@ class Edit extends React.Component {
 
   handleDynamicStepChange(e, index) {
     const method = [
-      ...this.state.formData.steps.slice(0, index),
+      ...this.state.formData.method.slice(0, index),
       e.target.value,
-      ...this.state.formData.steps.slice(index + 1)
+      ...this.state.formData.method.slice(index + 1)
     ]
 
     const formData = { ...this.state.formData, method }
@@ -111,7 +111,9 @@ class Edit extends React.Component {
   }
 
   addStep() {
-    this.setState({ steps: [...this.state.steps, '']})
+    const method = [...this.state.formData.method, '']
+    const formData = { ...this.state.formData, method }
+    this.setState({ formData })
   }
 
   handleRemoveIngredient(index) {
@@ -306,7 +308,7 @@ class Edit extends React.Component {
                     <Select
                       isMulti
                       name="tags"
-                      options={this.state.tagsOptions}
+                      options={this.state.tagOptions}
                       value={selectedTags}
                       onChange={this.handleMultiChange}
                     />
