@@ -24,14 +24,15 @@ class New extends React.Component {
   constructor() {
     super()
     this.state = {
-      formData: {},
+      formData: {
+        ingredients: [],
+        method: []
+      },
       errors: {},
       file: null,
-      ingredients: [],
-      steps: [],
-      mealOptions: {},
-      tagOptions: {},
-      equipmentOptions: {}
+      mealOptions: [],
+      tagOptions: [],
+      equipmentOptions: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -40,39 +41,15 @@ class New extends React.Component {
     this.handleMultiChange = this.handleMultiChange.bind(this)
   }
 
-  componentDidMount() {
-    axios.get('/api/meals')
-      .then(res => {
-        res.data
-        this.setState({ mealOptions: res.data.map(option => {
-          return {value: option.id, label: option.name}
-        })})
-      })
-    axios.get('/api/equipment')
-      .then(res => {
-        res.data
-        this.setState({ equipmentOptions: res.data.map(option => {
-          return {value: option.id, label: option.name}
-        })})
-      })
-    axios.get('/api/tags')
-      .then(res => {
-        res.data
-        this.setState({ tagOptions: res.data.map(option => {
-          return {value: option.id, label: option.name}
-        })})
-      })
-  }
-
   handleSubmit(e) {
     e.preventDefault()
 
     const cleanedData = {
       ...this.state.formData,
-      ingredients: this.state.ingredients,
+      ingredients: this.state.formData.ingredients,
       equipment: [parseInt(this.state.formData.equipment)],
       portions: parseInt(this.state.formData.portions),
-      method: this.state.steps,
+      method: this.state.formData.method,
       meal: parseInt(this.state.formData.meal),
       tags: [parseInt(this.state.formData.tags)],
       user: parseInt(Auth.currentUser()),
@@ -110,36 +87,86 @@ class New extends React.Component {
     this.setState({ formData })
   }
 
-  handleIngredientChange(e, index) {
-    this.state.ingredients[index] = e.target.value
-    this.setState({ ingredients: this.state.ingredients })
+  handleDynamicIngredientChange(e, index) {
+    const ingredients = [
+      ...this.state.formData.ingredients.slice(0, index),
+      e.target.value,
+      ...this.state.formData.ingredients.slice(index + 1)
+    ]
+
+    const formData = { ...this.state.formData, ingredients }
+
+    this.setState({ formData })
   }
 
-  handleStepChange(e, index) {
-    this.state.steps[index] = e.target.value
-    this.setState({ steps: this.state.steps })
+  handleDynamicStepChange(e, index) {
+    const method = [
+      ...this.state.formData.method.slice(0, index),
+      e.target.value,
+      ...this.state.formData.method.slice(index + 1)
+    ]
+
+    const formData = { ...this.state.formData, method }
+
+    this.setState({ formData })
   }
 
   addIngredient() {
-    this.setState({ ingredients: [...this.state.ingredients, '']})
+    const ingredients = [...this.state.formData.ingredients, '']
+    const formData = { ...this.state.formData, ingredients }
+    this.setState({ formData })
   }
 
   addStep() {
-    this.setState({ steps: [...this.state.steps, '']})
+    const method = [...this.state.formData.method, '']
+    const formData = { ...this.state.formData, method }
+    this.setState({ formData })
   }
 
   handleRemoveIngredient(index) {
-    this.state.ingredients.splice(index, 1)
-    this.setState({ ingredients: this.state.ingredients })
+    const ingredients = [
+      ...this.state.formData.ingredients.slice(0, index),
+      ...this.state.formData.ingredients.slice(index + 1)
+    ]
+    const formData = { ...this.state.formData, ingredients }
+    this.setState({ formData })
   }
 
   handleRemoveStep(index) {
-    this.state.steps.splice(index, 1)
-    this.setState({ steps: this.state.steps })
+    const method = [
+      ...this.state.formData.method.slice(0, index),
+      ...this.state.formData.method.slice(index + 1)
+    ]
+    const formData = { ...this.state.formData, method }
+    this.setState({ formData })
+  }
+
+  componentDidMount() {
+    this.setState()
+    axios.get('/api/meals')
+      .then(res => {
+        res.data
+        this.setState({ mealOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
+    axios.get('/api/equipment')
+      .then(res => {
+        res.data
+        this.setState({ equipmentOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
+    axios.get('/api/tags')
+      .then(res => {
+        res.data
+        this.setState({ tagOptions: res.data.map(option => {
+          return {value: option.id, label: option.name}
+        })})
+      })
   }
 
   render() {
-    console.log(this.state.mealOptions)
     return (
 
       <section className="hero is-light">
@@ -179,14 +206,14 @@ class New extends React.Component {
                   <div className="field">
                     <label className="label">Ingredients</label>
                     {
-                      this.state.ingredients.map((ingredient, index) => {
+                      this.state.formData.ingredients.map((ingredient, index) => {
                         return (
                           <div key={index} className="multiline-container">
                             <input
                               className="input multiline"
                               name="ingredients"
                               placeholder="eg: 3 eggs"
-                              onChange={(e) => this.handleIngredientChange(e, index)}
+                              onChange={(e) => this.handleDynamicIngredientChange(e, index)}
                               value={ingredient}
                             />
                             <button className="button is-danger" onClick={() => this.handleRemoveIngredient(index)}>Delete</button>
@@ -246,14 +273,14 @@ class New extends React.Component {
                   <div className="field">
                     <label className="label">Method</label>
                     {
-                      this.state.steps.map((step, index) => {
+                      this.state.formData.method.map((step, index) => {
                         return (
                           <div key={index} className="multiline-container">
                             <input
                               className="input multiline"
                               name="method"
                               placeholder="eg: Whisk the eggs"
-                              onChange={(e) => this.handleStepChange(e, index)}
+                              onChange={(e) => this.handleDynamicStepChange(e, index)}
                               value={step}
                             />
                             <button className="button is-danger" onClick={() => this.handleRemoveStep(index)}>Delete</button>
