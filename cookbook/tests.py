@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
@@ -6,21 +6,20 @@ from .models import Recipe, Meal, Tag, Equipment
 
 TestCase.maxDiff = None
 
-class RecipeTests(APITestCase):
+class RecipesTests(APITestCase):
 
     def setUp(self):
 
         user = User.objects.create(username='test', email='test@ga.co')
         meal = Meal.objects.create(name='Breakfast', user=user)
-        tags = Tag.objects.create(name='Vegetarian')
+        tag = Tag.objects.create(name='Vegetarian')
         equipment = Equipment.objects.create(name='Frying Pan')
         recipe = Recipe.objects.create(title='Omlette', image='https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2017/09/omelette.jpg?itok=7K3AxA-w', ingredients=['3 eggs', 'Pinch of Salt', 'Pinch of Pepper', '1 tbsp Olive Oil'], prep_time='00:05', cook_time='00:05', portions=1, method=['Beat the eggs', 'Heat the oil in the pan', 'Pour the eggs and cook until set', 'Season with salt and pepper'], meal=meal, created='2019-08-08', user=user)
 
-        recipe.tags.set([tags])
+        recipe.tags.set([tag])
         recipe.equipment.set([equipment])
 
         self.client.force_authenticate(user=user)
-
 
 
     def test_recipes_index(self):
@@ -83,7 +82,6 @@ class RecipeTests(APITestCase):
             "protein": None,
             "salt": None
         }])
-
 
 
     def test_recipes_create(self):

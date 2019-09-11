@@ -139,21 +139,21 @@ class Edit extends React.Component {
       .then(res => this.setState({ formData: res.data }))
     axios.get('/api/meals')
       .then(res => {
-        res.data.reverse()
+        res.data
         this.setState({ mealOptions: res.data.map(option => {
           return {value: option.id, label: option.name}
         })})
       })
     axios.get('/api/equipment')
       .then(res => {
-        res.data.reverse()
+        res.data
         this.setState({ equipmentOptions: res.data.map(option => {
           return {value: option.id, label: option.name}
         })})
       })
     axios.get('/api/tags')
       .then(res => {
-        res.data.reverse()
+        res.data
         this.setState({ tagOptions: res.data.map(option => {
           return {value: option.id, label: option.name}
         })})

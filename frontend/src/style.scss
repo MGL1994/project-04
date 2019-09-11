@@ -17,3 +17,20 @@
 .footer {
   background-color: $primary;
 }
+
+.box {
+  height: 400px;
+}
+
+.columns {
+  height: 100%;
+  margin: 0;
+}
+
+.column {
+  padding: 5px;
+}
+
+.tags.has-addons {
+  margin: 0;
+}

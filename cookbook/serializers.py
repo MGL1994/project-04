@@ -41,6 +41,9 @@ class RecipeSerializer(serializers.ModelSerializer):
 class PopulatedCommentSerializer(CommentSerializer):
     user = UserSerializer()
 
+    class Meta(CommentSerializer.Meta):
+        fields = '__all__'
+
 class PopulatedMealSerializer(MealSerializer):
     recipes = RecipeSerializer(many=True)
 
@@ -52,4 +55,4 @@ class PopulatedRecipeSerializer(RecipeSerializer):
     meal = MealSerializer()
     tags = TagSerializer(many=True)
     user = UserSerializer()
-    comments = CommentSerializer(many=True)
+    comments = PopulatedCommentSerializer(many=True)

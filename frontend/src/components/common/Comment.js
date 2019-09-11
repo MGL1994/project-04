@@ -1,21 +1,25 @@
 import React from  'react'
+import Auth from '../../lib/Auth'
 
 
 const Comment = ({ id, user, content, handleDeleteComment }) => {
   return (
-    <section className="section">
-      <div className="container">
-        <p>{user.username}</p>
-        <p>{content}</p>
-      </div>
-      <div className="container">
-        <div key={id} className="buttons">
-          <button className="button">Edit</button>
-          <button className="button" id={id} onClick={handleDeleteComment}>Delete</button>
+    <article className="media">
+      <div className="media-content">
+        <div className="content">
+          <p>
+            <strong>{user.username}</strong>
+            <br />
+            {content}
+          </p>
         </div>
       </div>
-    </section>
+      {Auth.currentUser() === user.id && <div key={id} className="media-right">
+        <button className="delete" id={id} onClick={handleDeleteComment}></button>
+      </div>}
+    </article>
   )
 }
+
 
 export default Comment

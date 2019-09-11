@@ -82,12 +82,18 @@ class ShowRecipe extends React.Component {
 
   handleDeleteComment(e) {
     e.preventDefault()
-    console.log(e.target.id)
-    axios.delete(`/api/comments/detail/${e.target.id}`, {
+    const commentId = +e.target.id
+    axios.delete(`/api/comments/${commentId}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(res => {
-        this.setState({ recipe: res.data })
+      .then(() => {
+        const index = this.state.recipe.comments.findIndex(comment => comment.id === commentId)
+        const comments = [
+          ...this.state.recipe.comments.slice(0, index),
+          ...this.state.recipe.comments.slice(index+1)
+        ]
+        const recipe = { ...this.state.recipe, comments }
+        this.setState({ recipe })
       })
   }
 
@@ -236,7 +242,7 @@ class ShowRecipe extends React.Component {
                 value={this.state.formData.content}
               />
             </div>
-            <button className="button">Submit</button>
+            <button className="button is-rounded is-primary">Submit</button>
           </form>}
           <hr />
           <h2 className="subtitle">Comments</h2>
