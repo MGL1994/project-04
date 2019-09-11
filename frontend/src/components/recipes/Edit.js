@@ -24,7 +24,7 @@ class Edit extends React.Component {
   constructor() {
     super()
     this.state = {
-      errors: {},
+      error: '',
       file: null,
       mealOptions: [],
       tagOptions: [],
@@ -53,18 +53,17 @@ class Edit extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(() => this.props.history.push(`/recipes/${this.props.match.params.id}`))
-      .catch(err => this.setState({ errors: err.response.data.errors }))
+      .catch(() => this.setState({ error: 'This field cannot be empty' }))
   }
 
   handleChange(e) {
     const formData = { ...this.state.formData, [e.target.name]: e.target.value }
-    const errors = { ...this.state.errors, [e.target.name]: '' }
-    this.setState({ formData, errors })
+    this.setState({ formData, error: '' })
   }
 
   handleSelectChange(selectedOption, data) {
     const formData = { ...this.state.formData, [data.name]: { id: selectedOption.value, name: selectedOption.label } }
-    this.setState({ formData })
+    this.setState({ formData, error: '' })
   }
 
   handleMultiChange(selectedOptions, data) {
@@ -72,7 +71,7 @@ class Edit extends React.Component {
       return { id: option.value, name: option.label }
     })
     const formData = { ...this.state.formData, [data.name]: options}
-    this.setState({ formData })
+    this.setState({ formData, error: '' })
   }
 
   handleUploadImages(result) {
@@ -89,7 +88,7 @@ class Edit extends React.Component {
 
     const formData = { ...this.state.formData, ingredients }
 
-    this.setState({ formData })
+    this.setState({ formData, error: '' })
   }
 
   handleDynamicStepChange(e, index) {
@@ -101,7 +100,7 @@ class Edit extends React.Component {
 
     const formData = { ...this.state.formData, method }
 
-    this.setState({ formData })
+    this.setState({ formData, error: '' })
   }
 
   addIngredient() {
@@ -186,6 +185,8 @@ class Edit extends React.Component {
                     />
                   </div>
 
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
+
                   <div className="field">
                     <label className="label">Image</label>
                     <ReactFilestack
@@ -200,6 +201,8 @@ class Edit extends React.Component {
                     />
                     {this.state.formData.image && <img src={this.state.formData.image} />}
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <div className="field">
                     <label className="label">Ingredients</label>
@@ -222,6 +225,8 @@ class Edit extends React.Component {
                     <button className="button is-primary is-rounded is-small" onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
                   </div>
 
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
+
                   <div className="field">
                     <label className="label">Equipment</label>
                     <Select
@@ -233,6 +238,8 @@ class Edit extends React.Component {
                     />
                   </div>
 
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
+
                   <div className="field">
                     <label className="label">Prep Time</label>
                     <input
@@ -243,8 +250,9 @@ class Edit extends React.Component {
                       value={this.state.formData.prep_time || ''}
                       onChange={this.handleChange}
                     />
-
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <div className="field">
                     <label className="label">Cook Time</label>
@@ -256,8 +264,9 @@ class Edit extends React.Component {
                       value={this.state.formData.cook_time || ''}
                       onChange={this.handleChange}
                     />
-
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <div className="field">
                     <label className="label">Portions</label>
@@ -269,8 +278,9 @@ class Edit extends React.Component {
                       value={this.state.formData.portions || ''}
                       onChange={this.handleChange}
                     />
-
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <div className="field">
                     <label className="label">Method</label>
@@ -293,6 +303,8 @@ class Edit extends React.Component {
                     <button className="button is-primary is-rounded is-small" onClick={(e) => this.addStep(e)}>Add Step</button>
                   </div>
 
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
+
                   <div className="field">
                     <label className="label">Meal</label>
                     <Select
@@ -302,6 +314,8 @@ class Edit extends React.Component {
                       onChange={this.handleSelectChange}
                     />
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <div className="field">
                     <label className="label">Tags</label>
@@ -313,6 +327,8 @@ class Edit extends React.Component {
                       onChange={this.handleMultiChange}
                     />
                   </div>
+
+                  {this.state.error && <small className="help is-danger">{this.state.error}</small>}
 
                   <button className="submit button is-primary is-rounded is-large">Submit</button>
                 </form>
