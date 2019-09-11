@@ -21,21 +21,21 @@ class Home extends React.Component {
       <section className="section">
         <div className="container">
           <div className="columns is-vcentered">
-            <div className="column">
+            <div className="column hero-column">
               <h1 className="title is-1">Share Your Gastronomic Masterpieces With The World</h1>
               <hr />
               <h2 className="subtitle is-3">At Cookbook we believe that all food is art, and it should be put on display. We hope you will join our food revolution and join a community of like-minded individuals who want make recipes accesible for everyone.
               </h2>
               {!Auth.isAuthenticated() &&<Link to="/register" className="button is-primary is-rounded is-large">Join Now</Link>}
             </div>
-            <div className="column">
+            <div className="column hero-column">
               <img src={IndexPreview} alt="Index Preview" />
             </div>
           </div>
         </div>
 
         <div className="container">
-          <div className="box">
+          <div className="box homepage">
             <div className="columns is-vcentered">
               <div className="column">
                 <img src={RecipePreview} alt="Recipe Preview" />
@@ -52,7 +52,7 @@ class Home extends React.Component {
         </div>
 
         <div className="container">
-          <div className="box">
+          <div className="box homepage">
             <div className="columns is-vcentered">
               <div className="column">
                 <h3 className="title is-3">Easy Uploading</h3>
@@ -68,7 +68,7 @@ class Home extends React.Component {
         </div>
 
         <div className="container">
-          <div className="box">
+          <div className="box homepage">
             <div className="columns is-vcentered">
               <div className="column">
                 <img src={CommentsPreview} alt="Comments Preview" />

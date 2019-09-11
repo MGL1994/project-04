@@ -181,20 +181,20 @@ class New extends React.Component {
                     {
                       this.state.ingredients.map((ingredient, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="multiline-container">
                             <input
-                              className="input"
+                              className="input multiline"
                               name="ingredients"
                               placeholder="eg: 3 eggs"
                               onChange={(e) => this.handleIngredientChange(e, index)}
                               value={ingredient}
                             />
-                            <button onClick={() => this.handleRemoveIngredient(index)}>Remove Ingredient</button>
+                            <button className="button is-danger" onClick={() => this.handleRemoveIngredient(index)}>Delete</button>
                           </div>
                         )
                       })
                     }
-                    <button onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
+                    <button className="button is-primary is-rounded is-small" onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
                   </div>
 
                   <div className="field">
@@ -248,20 +248,20 @@ class New extends React.Component {
                     {
                       this.state.steps.map((step, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="multiline-container">
                             <input
-                              className="input"
+                              className="input multiline"
                               name="method"
                               placeholder="eg: Whisk the eggs"
                               onChange={(e) => this.handleStepChange(e, index)}
                               value={step}
                             />
-                            <button onClick={() => this.handleRemoveStep(index)}>Remove Step</button>
+                            <button className="button is-danger" onClick={() => this.handleRemoveStep(index)}>Delete</button>
                           </div>
                         )
                       })
                     }
-                    <button onClick={(e) => this.addStep(e)}>Add Step</button>
+                    <button className="button is-primary is-rounded is-small" onClick={(e) => this.addStep(e)}>Add Step</button>
                   </div>
 
                   <div className="field">
@@ -283,7 +283,7 @@ class New extends React.Component {
                     />
                   </div>
 
-                  <button className="submit">Submit</button>
+                  <button className="submit button is-primary is-large is-rounded">Submit</button>
                 </form>
               </div>
             </div>

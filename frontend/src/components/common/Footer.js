@@ -20,12 +20,18 @@ const Footer = () => {
             <p>Contact Us</p>
           </div>
           <div className="column has-text-white">
-            <img src="https://www.iconsdb.com/icons/preview/white/facebook-5-xxl.png" alt="Facebook Logo" width="30" />
+            <div className="columns is-multiline">
+              <div className="column is-full has-text-centered">
+                <a href="#"><img src="https://www.iconsdb.com/icons/preview/white/facebook-5-xxl.png" alt="Facebook Logo" width="30" /></a>
 
-            <img src="https://www.iconsdb.com/icons/preview/white/twitter-5-xxl.png" alt="Twitter Logo" width="30" />
+                <a href="#"><img src="https://www.iconsdb.com/icons/preview/white/twitter-5-xxl.png" alt="Twitter Logo" width="30" /></a>
 
-            <img src="https://www.iconsdb.com/icons/preview/white/instagram-4-xxl.png" alt="Instagram Logo" width="30" />
-            <p className="is-size-7">&copy; Copyright 2019 CookBook. All rights reserved.</p>
+                <a href="#"><img src="https://www.iconsdb.com/icons/preview/white/instagram-4-xxl.png" alt="Instagram Logo" width="30" /></a>
+              </div>
+              <div className="column is-full">
+                <p className="is-size-7">&copy; Copyright 2019 CookBook. All rights reserved.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

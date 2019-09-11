@@ -172,7 +172,7 @@ class Edit extends React.Component {
             <div className="column is-4 is-offset-4">
 
               <h1 className="title"> Edit Recipe </h1>
-              <p className="subtitle">What did you make?</p>
+              <p className="subtitle">What changed?</p>
               <div className="box is-light">
                 <form onSubmit={this.handleSubmit}>
                   <div className="field">
@@ -206,20 +206,20 @@ class Edit extends React.Component {
                     {
                       this.state.formData.ingredients.map((ingredient, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="multiline-container">
                             <input
-                              className="input"
+                              className="input multiline"
                               name="ingredients"
                               placeholder="eg: 3 eggs"
                               onChange={(e) => this.handleDynamicIngredientChange(e, index)}
                               value={ingredient || ''}
                             />
-                            <button type="button" onClick={() => this.handleRemoveIngredient(index)}>Remove Ingredient</button>
+                            <button className="button is-danger" onClick={() => this.handleRemoveIngredient(index)}>Delete</button>
                           </div>
                         )
                       })
                     }
-                    <button type="button" onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
+                    <button className="button is-primary is-rounded is-small" onClick={(e) => this.addIngredient(e)}>Add Ingredient</button>
                   </div>
 
                   <div className="field">
@@ -277,20 +277,20 @@ class Edit extends React.Component {
                     {
                       this.state.formData.method.map((step, index) => {
                         return (
-                          <div key={index}>
+                          <div key={index} className="multiline-container">
                             <input
-                              className="input"
+                              className="input multiline"
                               name="method"
                               placeholder="eg: Whisk the eggs"
                               onChange={(e) => this.handleDynamicStepChange(e, index)}
                               value={step || ''}
                             />
-                            <button type="button" onClick={() => this.handleRemoveStep(index)}>Remove Step</button>
+                            <button className="button is-danger" onClick={() => this.handleRemoveStep(index)}>Delete</button>
                           </div>
                         )
                       })
                     }
-                    <button type="button" onClick={(e) => this.addStep(e)}>Add Step</button>
+                    <button className="button is-primary is-rounded is-small" onClick={(e) => this.addStep(e)}>Add Step</button>
                   </div>
 
                   <div className="field">
@@ -314,7 +314,7 @@ class Edit extends React.Component {
                     />
                   </div>
 
-                  <button className="submit">Submit</button>
+                  <button className="submit button is-primary is-rounded is-large">Submit</button>
                 </form>
               </div>
             </div>

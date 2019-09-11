@@ -18,7 +18,7 @@
   background-color: $primary;
 }
 
-.box {
+.homepage {
   height: 400px;
 }
 
@@ -33,4 +33,16 @@
 
 .tags.has-addons {
   margin: 0;
+}
+
+.multiline-container {
+  padding: 20px 0;
+}
+
+.multiline {
+  max-width: 80%;
+}
+
+.hero-column {
+  padding: 20px;
 }
