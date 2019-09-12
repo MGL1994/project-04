@@ -13,12 +13,11 @@ Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 
 ### Brief
 
-* Render a **grid-based game** in the browser
-* Allow **player** to **move left or right & fire a laser**.
-* **Automatically move enemies right, left & down, as well as periodically dropping bombs.**
-* The player should be able to **clear at least one wave of enemies, upon which the game starts again**.
-* The player's **score should be displayed at the end of the game**.
-* **Include separate HTML / CSS / JavaScript files.**
-* **Use Javascript for DOM manipulation.**
-* **Deploy your game online, using Github Pages**, where the rest of the world can access it.
-* **Use semantic markup for HTML and CSS** (adhere to best practices).
+* **Build a full-stack application** by making your own backend and your own front-end
+* **Use a Python Django API** using Django REST Framework to serve your data from a Postgres database
+* **Consume your API with a separate front-end** built with React
+* **Be a complete product** meaning multiple relationships and CRUD functionality for at least a couple of models
+* **Implement thoughtful user stories/wireframes**
+* **Have a visually impressive design**
+* **Be deployed online** so it's publicly accessible.
+* **Have automated tests** for _at least_ one RESTful resource on the back-end.
