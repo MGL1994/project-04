@@ -12,6 +12,7 @@ pyjwt = "*"
 psycopg2-binary = "*"
 requests = "*"
 django-heroku = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
