@@ -1,4 +1,1 @@
-![Project Logo](https://imgur.com/iTvqiHV)
-
-
-https://imgur.com/iTvqiHV
+![Project Logo](https://i.imgur.com/iTvqiHV.png)
