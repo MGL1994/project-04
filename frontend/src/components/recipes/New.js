@@ -56,8 +56,6 @@ class New extends React.Component {
       created: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
     }
 
-    console.log(cleanedData)
-
     axios.post('/api/recipes/', cleanedData, {
       headers: { Authorization: `Bearer ${Auth.getToken()}`}
     })

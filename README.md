@@ -47,9 +47,71 @@ With that in mind, my goal was to focus on building a quality app by:
 
 ### Code Snippets
 
+Worked the data requested from the server into a user friendly display
+
 ```javascript
 <div className="tags has-addons">
   <span className="tag is-dark">Salt</span>
   <span className={'tag ' + ((this.state.recipe.salt / 1000) < 0.3 ? 'has-background-success' : (this.state.recipe.salt / 1000) < 1.5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{(this.state.recipe.salt / 1000).toFixed(2)}g | {Math.round(((this.state.recipe.salt / 1000) / 6) * 100)}%</span>
 </div>
+```
+
+Reformatted the form data to be accepted by the API.
+
+```javascript
+handleSubmit(e) {
+  e.preventDefault()
+
+  const cleanedData = {
+    ...this.state.formData,
+    ingredients: this.state.formData.ingredients,
+    equipment: [parseInt(this.state.formData.equipment)],
+    portions: parseInt(this.state.formData.portions),
+    method: this.state.formData.method,
+    meal: parseInt(this.state.formData.meal),
+    tags: [parseInt(this.state.formData.tags)],
+    user: parseInt(Auth.currentUser()),
+    created: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
+  }
+
+  axios.post('/api/recipes/', cleanedData, {
+    headers: { Authorization: `Bearer ${Auth.getToken()}`}
+  })
+```
+
+Use of external API to get nutritional information
+
+```python
+def post(self, request):
+      data = request.data
+
+      app_id = os.getenv("APPID")
+      app_key = os.getenv("APPKEY")
+
+      r = requests.post('https://api.edamam.com/api/nutrition-details',
+          params={'app_id':app_id, 'app_key':app_key},
+          json={'title': data['title'], 'ingr': data['ingredients']}
+      )
+
+      stats = r.json()['totalNutrients']
+      nutrition = {
+          'calories': round(stats['ENERC_KCAL']['quantity']),
+          'fat': round(stats['FAT']['quantity']),
+          'saturates': round(stats['FASAT']['quantity']),
+          'carbs': round(stats['CHOCDF']['quantity']),
+          'sugars': round(stats['SUGAR']['quantity']),
+          'fibre': round(stats[('FIBTG')]['quantity']) if 'FITBG' in stats else 0,
+          'protein': round(stats['PROCNT']['quantity']),
+          'salt': round(stats['NA']['quantity'])
+      }
+      data = {**data, **nutrition}
+
+      serializer = RecipeSerializer(data=data)
+      if serializer.is_valid():
+          serializer.save()
+          recipe = serializer.instance
+          serializer = PopulatedRecipeSerializer(recipe)
+          return Response(serializer.data, status=201)
+
+      return Response(serializer.errors, status=422)
 ```
