@@ -1,5 +1,5 @@
 import React from 'react'
-import CookbookLogoWhite from '../../images/CookBookLogoWhite.png'
+import cookBookLogoWhite from '../../img/CookBookLogoWhite.png'
 
 const Footer = () => {
   return (
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="columns">
           <div className="column">
-            <img src={CookbookLogoWhite} alt="CookBook Logo" />
+            <img src={cookBookLogoWhite} alt="CookBook Logo" />
           </div>
           <div className="column has-text-white">
             <p>About Us</p>
@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
           <div className="column has-text-white">
             <div className="columns is-multiline">
-              <div className="column is-full has-text-centered">
+              <div className="column is-full">
                 <a href="#"><img src="https://www.iconsdb.com/icons/preview/white/facebook-5-xxl.png" alt="Facebook Logo" width="30" /></a>
 
                 <a href="#"><img src="https://www.iconsdb.com/icons/preview/white/twitter-5-xxl.png" alt="Twitter Logo" width="30" /></a>

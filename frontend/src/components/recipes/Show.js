@@ -106,7 +106,7 @@ class ShowRecipe extends React.Component {
         <div className="container ">
           <div className="columns">
             <div className="column">
-              <img src={this.state.recipe.image}/>
+              <img src={this.state.recipe.image} className="image show"/>
               <hr />
               <p className="has-text-weight-bold">Tags:</p>
               <div className="tags">

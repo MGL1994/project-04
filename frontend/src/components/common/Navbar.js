@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../../lib/Auth'
-import CookbookLogo from '../../images/CookBook.png'
+import cookBookLogo from '../../img/CookBook.png'
 
 class Navbar extends React.Component {
 
@@ -46,10 +46,10 @@ class Navbar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <img src={CookbookLogo} alt="CookBook Logo"/>
+            <img src={cookBookLogo} alt="CookBook Logo"/>
           </Link>
         </div>
-      
+
         <div className="navbar-end">
           <a
             role="button"

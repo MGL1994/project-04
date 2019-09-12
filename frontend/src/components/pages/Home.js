@@ -1,10 +1,10 @@
 import React from 'react'
-import IndexPreview from '../../images/IndexPreview.png'
-import RecipePreview from '../../images/RecipePreview.png'
-import NewRecipePreview from '../../images/NewRecipePreview.png'
-import CommentsPreview from '../../images/CommentsPreview.png'
 import { Link } from 'react-router-dom'
 import Auth from '../../lib/Auth'
+import indexPreview from '../../img/IndexPreview.png'
+import newRecipePreview from '../../img/NewRecipePreview.png'
+import recipePreview from '../../img/RecipePreview.png'
+import commentsPreview from '../../img/CommentsPreview.png'
 
 class Home extends React.Component {
 
@@ -29,7 +29,7 @@ class Home extends React.Component {
               {!Auth.isAuthenticated() &&<Link to="/register" className="button is-primary is-rounded is-large">Join Now</Link>}
             </div>
             <div className="column hero-column">
-              <img src={IndexPreview} alt="Index Preview" />
+              <img src={indexPreview} alt="Index Preview" />
             </div>
           </div>
         </div>
@@ -38,7 +38,7 @@ class Home extends React.Component {
           <div className="box homepage">
             <div className="columns is-vcentered">
               <div className="column">
-                <img src={RecipePreview} alt="Recipe Preview" />
+                <img src={recipePreview} alt="Recipe Preview" />
               </div>
               <div className="column">
                 <h3 className="title is-3">Get Cooking</h3>
@@ -61,7 +61,7 @@ class Home extends React.Component {
                 </h4>
               </div>
               <div className="column">
-                <img src={NewRecipePreview} alt="NewRecipe Preview" />
+                <img src={newRecipePreview} alt="NewRecipe Preview" />
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@ class Home extends React.Component {
           <div className="box homepage">
             <div className="columns is-vcentered">
               <div className="column">
-                <img src={CommentsPreview} alt="Comments Preview" />
+                <img src={commentsPreview} alt="Comments Preview" />
               </div>
               <div className="column">
                 <h3 className="title is-3">Give Feedback</h3>
