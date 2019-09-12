@@ -22,6 +22,16 @@ Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 * **Be deployed online** so it's publicly accessible.
 * **Have automated tests** for _at least_ one RESTful resource on the back-end.
 
+### Goal
+
+As my this was my last project at General Assembly, I was determined to create something that encompassed my learning to this point.
+
+With that in mind, my goal was to focus on building a quality app by:
+
+* Using **best practices**.
+* Focussing on writing **stable code** and refactoring, before adding more functionality.
+* Styling as I went along, using a **simple but effective design**.
+
 ### Technologies Used
 
 * HTML5
@@ -33,4 +43,13 @@ Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 * Django
 * React
 
-### Approach
+### Process
+
+### Code Snippets
+
+```javascript
+<div className="tags has-addons">
+  <span className="tag is-dark">Salt</span>
+  <span className={'tag ' + ((this.state.recipe.salt / 1000) < 0.3 ? 'has-background-success' : (this.state.recipe.salt / 1000) < 1.5 ? 'has-background-warning' : 'has-background-danger has-text-white')}>{(this.state.recipe.salt / 1000).toFixed(2)}g | {Math.round(((this.state.recipe.salt / 1000) / 6) * 100)}%</span>
+</div>
+```
