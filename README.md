@@ -21,3 +21,16 @@ Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 * **Have a visually impressive design**
 * **Be deployed online** so it's publicly accessible.
 * **Have automated tests** for _at least_ one RESTful resource on the back-end.
+
+### Technologies Used
+
+* HTML5
+* CSS3 & SASS4
+* JavaScript (ES6)
+* Git
+* GitHub
+* Python
+* Django
+* React
+
+### Approach
