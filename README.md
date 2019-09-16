@@ -5,7 +5,9 @@
 
 ### Overview
 
-CookBook is a full-stack app built using Django and React.
+CookBook is a full-stack app that allows users to browse and upload custom recipe creations. My hope for the app is that it will bring about a community of enthusiastic home cooks who can display and share their work.
+
+The app was built using Python and Django on the back end making use of models and databases. For the front end I used JavaScript and React as these are powerful tools to create a user-friendly interface.
 
 Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 
@@ -21,6 +23,10 @@ Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
 * **Have a visually impressive design**
 * **Be deployed online** so it's publicly accessible.
 * **Have automated tests** for _at least_ one RESTful resource on the back-end.
+
+### Timeframe
+
+I was given 7 days to complete the project.
 
 ### Goal
 
