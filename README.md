@@ -140,6 +140,25 @@ Worked the data requested from the server into a user friendly display
 
 #### Result
 
-#### Reflection
+Overall I am very satisfied with the product I created. Not only do I think it is useful and fun in itself, but it really captures my progression during my time at GA. Importantly the code is robust as I took time to refactor as I went along, and the front end is user friendly whilst also looking great.
+
+### Reflection
+
+#### Wins
+
+* Integrating a third-party API, allowing the recipes to have maximum information with minimal user input.
+* Building the back end using Python and Django, a language and framework I had only been introduced to a week prior but meant I was learning as I built.
+* Using Bulma to create styling quickly, but shaping it to fit my concept and look unique.
+
+#### Challenges
+
+* Handling comments using Python/Django instead of Node.js/Express as I had previously was a challenge as this was quite a different process.
+* Time. I had not worked on a solo project since the first one at GA. Progress was slower than I anticipated at times and reaffirmed my thinking that teamwork is a key aspect of software engineering.
 
 #### Future Features
+
+I would like to build upon the app to take it to the next level by implementing the following:
+
+* A favourite function where users can save their favourite recipes.
+* A user profile page where favourited recipes can be viewed.
+* A shopping widget, allowing users to generate an online shopping list based on the ingredients in the recipe.
