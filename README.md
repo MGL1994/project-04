@@ -59,6 +59,8 @@ I then set about laying out my plan for the week of the project, using a Trello 
 
 Once I had a plan in place, I drew up some wireframes so that I could keep my vision in mind as a guide during the build and design process.
 
+![Wireframes](https://i.imgur.com/No5AfEh.png)
+
 #### Build
 
 My first task was to build the back end of my app as per the model wireframes I drew up. Getting these right from the start was crucial and would save me valuable time later in the project. I used 1 main and 4 secondary models for this project, all of which were connected to the main through the use of ForeignKey or ManyToManyField relationships.
