@@ -3,13 +3,22 @@
 
 ## General Assembly: Project 4
 
+[Take a look at this deployed project online](https://cookbook-2019.herokuapp.com/#/).
+
+### Installation
+
+* Clone or download the repo
+* `pipenv shell` to move into virtual environment
+* `yarn` and `pipenv install` to install dependencies
+* ` python manage.py dumpdata cookbook --output cookbook/fixtures.json --indent=2` to populate database
+* `yarn serve:backend` to run back end
+* `yarn serve:frontend` to run front end
+
 ### Overview
 
 CookBook is a full-stack app that allows users to browse and upload custom recipe creations. My hope for the app is that it will bring about a community of enthusiastic home cooks who can display and share their work.
 
-The app was built using Python and Django on the back end making use of models and databases. For the front end I used JavaScript and React as these are powerful tools to create a user-friendly interface.
-
-Take a closer look [here](https://cookbook-2019.herokuapp.com/#/).
+The app was built using Python and Django on the back end making use of postgreSQL. For the front end I used JavaScript and React as these are powerful tools to create a user-friendly interface.
 
 ![App Homepage](https://i.imgur.com/HGm4cbG.png)
 
@@ -47,7 +56,11 @@ With that in mind, my goal was to focus on building a quality app by:
 * GitHub
 * Python
 * Django
+* Django REST framework
 * React
+* Bulma
+* PostgreSQL
+* Edamam Nutrition API
 
 ### Process
 
