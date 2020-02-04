@@ -32,7 +32,7 @@ class Register extends React.Component {
           pathname: '/login'
         })
       })
-      .catch(err => this.setState({ errors: err.response.data.errors }))
+      .catch(err => this.setState({ errors: err.response.data }))
   }
 
   render() {

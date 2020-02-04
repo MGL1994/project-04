@@ -4,6 +4,7 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.exceptions import PermissionDenied
 import jwt
 
+
 class JWTAuthentication(BasicAuthentication):
 
     def authenticate(self, request):
@@ -11,13 +12,13 @@ class JWTAuthentication(BasicAuthentication):
         header = request.headers.get('Authorization')
 
         if not header:
-            return None # this request is not authenticated
+            return None  # this request is not authenticated
 
         if not header.startswith('Bearer'):
             # send a 401 response
             raise PermissionDenied({'message': 'Invalid Authorization header'})
 
-        token = header.replace('Bearer ', '') # get the token from the header
+        token = header.replace('Bearer ', '')  # get the token from the header
 
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])

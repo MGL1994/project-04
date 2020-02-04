@@ -6,6 +6,7 @@ from django.conf import settings
 import jwt
 from .serializers import UserSerializer
 
+
 class RegisterView(APIView):
 
     def post(self, request):
@@ -14,6 +15,7 @@ class RegisterView(APIView):
             serializer.save()
             return Response({'message': 'Registration successful'})
 
+        raise PermissionDenied({'message': 'Invalid Credentials'})
         return Response(serializer.errors, status=422)
 
 
